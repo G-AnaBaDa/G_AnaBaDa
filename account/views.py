@@ -64,3 +64,13 @@ class MainView(APIView):
         if account_id:
             return render(request, 'main.html')
         return render(request, 'base_page.html')
+
+#아이디 찾기
+class FindId(APIView):
+    def get(self,request):
+        return render(request, 'find_account.html')
+    def post(self,request):
+        email = request.data.get('email')
+        E = User.objects.filter(email=email)
+#E가 있는객체인지, 빈 객체인지는  결과 템플릿에서 if문에 나눠서 출력할것임
+        return render(request, 'find_accountOK.html', {'E':E})
