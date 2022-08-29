@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from account.views import MainView, Logout, Login, Register
+import mimetypes
+from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,3 +29,11 @@ urlpatterns = [
     path('logout/', Logout.as_view()),
     path('signup/', Register.as_view()),
 ]
+
+# DEBUG Toolbar
+if settings.DEBUG:
+    mimetypes.add_type("application/javascript", ".js", True)
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
