@@ -1,0 +1,63 @@
+
+<h1>회원가입폼</h1>
+<form name="f1" method="post" action="/signup/">
+{% csrf_token %}
+    <table width="300" border="1" cellpadding="2" cellspacing="0">
+    <tbody>
+    <tr>
+        <td>아이디 : </td>
+        <td><input type="text" name="account_id"></td>
+    </tr>
+    <tr>
+        <td>비밀번호 : </td>
+        <td><input type="password" name="password"></td>
+    </tr>
+    <tr>
+        <td>이름 : </td>
+        <td><input type="text" name="name"></td>
+    </tr>
+    <tr>
+        <td>이메일 : </td>
+        <td><input type="text" name="email"></td>
+    </tr>
+        <tr>
+        <td>닉네임 : </td>
+        <td><input type="text" name="nickname"></td>
+    </tr>
+        <tr>
+        <td>전화번호 : </td>
+        <td><input type="text" name="phone_number"></td>
+    </tr>
+    </tbody>
+    </table>
+
+<button type="submit" onclick="memReg()" >회원가입하기</button>
+</form>
+<button onclick="location.href='/'" >메인 페이지</button>
+
+
+<script>
+function memReg() {
+    var form = document.f1;
+    if (form.account_id.value=="") {
+        alert("아이디를 입력해 주십시오.");
+        form.m_id.focus();
+        return;
+    }
+    if (form.passwd.value=="") {
+        alert("비밀번호를 입력해 주십시오.");
+        form.passwd.focus();
+        return;
+    }
+    if (form.name.value=="") {
+        alert("이름을 입력해 주십시오.");
+        form.name.focus();
+        return;
+    }
+
+    form.submit();
+}
+</script>
+{% if message %}
+<script>alert('{{ message }}');</script>
+{% endif %}
