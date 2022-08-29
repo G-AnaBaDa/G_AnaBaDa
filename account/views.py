@@ -63,7 +63,7 @@ class MainView(APIView):
         account_id = request.session.get('id')
         if account_id:
             return render(request, 'main.html')
-        return render(request, 'base_page.html')
+        return render(request, 'Base_page.html')
 
 #아이디 찾기
 class FindId(APIView):
