@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head><title>자유게시판</title></head>
+    <style>
+        #find{
+            position: relative;
+            left: 400px;
+        }
+        table{
+            border-collapse: collapse;
+        }
+        td,th{
+            text-align: left;
+            padding: 5px;
+            height: 15px;
+            width: 100px;
+        }
+        thead{
+            background: darkgray;
+            color: yellow;
+        }
+        tbody tr:nth-child(even){
+            background: aliceblue;
+        }
+        tbody tr:hover {
+            background: pink;
+        }
+        #write{
+            position: relative;
+            left: 600px;
+        }
+    </style>
+    <body>
+        <h3>교환합시다(가제)</h3><hr><br>
+        <div id="find">
+            <input type="text" placeholder="검색어 입력">
+            <button>검색</button>
+        </div>
+        <table bodder="1">
+            <caption>자유게시판</caption><br>
+            <thead>
+                <tr><th>번호</th><th>이름</th><th>제목</th><th>날짜</th><th>조회</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>박강민</td><td>몸짱</td><td>오늘</td><td>10</td></tr>
+                <tr><td>2</td><td>김경민</td><td>건물주</td><td>어제</td><td>200</td></tr>
+                <tr><td>3</td><td>배정훈</td><td>전라도</td><td>엊그제</td><td>50</td></tr>
+                <tr><td>4</td><td>김용상</td><td>존잘</td><td>오늘</td><td>40</td></tr>
+                <tr><td>5</td><td>김건일</td><td>마두기 선생님</td><td>오늘</td><td>30</td></tr>
+            </tbody>
+        </table>
+        <button id="write" type="button" onclick="location.href='community_writing.html'">글쓰기</button>
+    </body>
+</html>
