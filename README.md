@@ -1,2 +1,1 @@
 # AnaBaDa
-## ADD Kangmin.
