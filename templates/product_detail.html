@@ -8,12 +8,13 @@
 <table>
     <tr>
         <td><img src="https://www.ui4u.go.kr/depart/img/content/sub03/img_con03030100_01.jpg" width="50" height="50"></td>
-        <td>제목 {{ object.title }}</td>
-        <td>회원id(근데 닉네임으로 고쳐야함) {{ object.writer }}</td>
-        <td>내용 {{ object.content | safe }}</td>
-        <td>카테고리 {{ object.category }}</td>
+        <td>제목 {{ product.title }}</td>
+        <td>회원id(근데 닉네임으로 고쳐야함) {{ product.writer }}</td>
+        <td>내용 {{ product.content | safe }}</td>
+        <td>카테고리 {{ product.category }}</td>
         {# <td style = "padding: 15" rowspan="3">좋아요</td>  보류 #}
-        <td>등록일 {{ object.write_time.ctime }}</td>
+        <td>등록일 {{ product.write_time.ctime }}</td>
+        <td>조회수 {{ product.count }}</td>
 
     </tr>
 </table>
