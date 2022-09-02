@@ -37,6 +37,7 @@ class productList(ListView):
 #     model = Product
 #     template_name = 'product_detail.html'
 
+# 상품 상세보기 + 조회수 기능 추가 
 def productDetail(request,pk):
     product = get_object_or_404(Product, id=pk)
     template_name = 'product_detail.html'
