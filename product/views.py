@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from rest_framework.views import APIView
 from .models import Product
-
+from django.shortcuts import get_object_or_404
+from datetime import datetime, timedelta
 # 마이 페이지
 class myPage(APIView):
     def get(self, request):
@@ -32,6 +33,25 @@ class productList(ListView):
     template_name = 'product_list.html'
 
 # 상품 상세보기
-class productDetail(DetailView):
-    model = Product
+# class productDetail(DetailView):
+#     model = Product
+#     template_name = 'product_detail.html'
+
+def productDetail(request,pk):
+    product = get_object_or_404(Product, id=pk)
     template_name = 'product_detail.html'
+    response = render(request, 'product_detail.html', {'product':product })
+    expire_date, now = datetime.now(), datetime.now()
+    expire_date += timedelta(days=1)
+    expire_date = expire_date.replace(hour=0,minute=0,second=0,microsecond=0)
+    expire_date -= now
+    max_age = expire_date.total_seconds()
+
+    cookie_value = request.COOKIES.get('countcookie','')
+
+    if f'{pk}' not in cookie_value:
+        cookie_value += f'{pk}_'
+        response.set_cookie('countcookie', value=cookie_value, max_age=max_age,httponly=True)
+        product.count += 1
+        product.save()
+    return response
