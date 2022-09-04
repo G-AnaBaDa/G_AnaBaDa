@@ -8,3 +8,7 @@ class Board(models.Model): #발상의 전환
     content = models.TextField(default='', null=False, blank=False)
     write_time = models.DateField(auto_now_add=True)
 
+    def str(self):
+        return self.title
+
+

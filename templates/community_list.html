@@ -39,15 +39,14 @@
         <table bodder="1">
             <caption>자유게시판</caption><br>
             <thead>
-                <tr><th>번호</th><th>이름</th><th>제목</th><th>날짜</th><th>조회</th></tr>
+                <tr><th>제목</th><th>날짜</th><th>작성자</th><th>-</th><th>-</th></tr>
             </thead>
+            {% for product in object_list %}
             <tbody>
-                <tr><td>1</td><td>박강민</td><td>몸짱</td><td>오늘</td><td>10</td></tr>
-                <tr><td>2</td><td>김경민</td><td>건물주</td><td>어제</td><td>200</td></tr>
-                <tr><td>3</td><td>배정훈</td><td>전라도</td><td>엊그제</td><td>50</td></tr>
-                <tr><td>4</td><td>김용상</td><td>존잘</td><td>오늘</td><td>40</td></tr>
-                <tr><td>5</td><td>김건일</td><td>마두기 선생님</td><td>오늘</td><td>30</td></tr>
+            <tr><td>{{product.title}}</td><td>{{ product.write_time }}</td><td>{{ product.user_id }}</td></tr>
+
             </tbody>
+            {% endfor %}
         </table>
         <button id="write" type="button" onclick="location.href='community_writing.html'">글쓰기</button>
     </body>
