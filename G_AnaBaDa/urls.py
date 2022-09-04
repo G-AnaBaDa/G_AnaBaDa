@@ -18,6 +18,8 @@ from django.urls import path
 from django.conf.urls import include
 from account.views import MainView, Logout, Login, Register, FindId
 from django.contrib.auth import views as auth_views
+
+from board.views import BoardListView, BoardUploadView
 from product.views import UploadProduct, productList, productDetail, myPage
 from product import views
 
@@ -47,6 +49,10 @@ urlpatterns = [
     path('list/', productList.as_view()),
     path('list/<int:pk>', views.productDetail),
     path('myPage/', myPage.as_view()),
+
+    #자유게시판
+    path('board/',BoardListView.as_view()),
+    path('board_upload/',BoardUploadView.as_view()),
 ]
 
 # DEBUG Toolbar
