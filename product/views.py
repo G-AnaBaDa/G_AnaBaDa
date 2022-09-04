@@ -21,10 +21,10 @@ class UploadProduct(APIView):
         title = request.POST.get('title')
         category = request.POST.get('category')
         summernote = request.POST.get('summernote')
-        # writer = request.POST.get('writer')
+        user_id = request.user
         location = request.POST.get('location')
         hashtag = request.POST.get('hashtag')
-        Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag)
+        Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id)
         return render(request, 'main.html')
 
 # 상품 게시판
