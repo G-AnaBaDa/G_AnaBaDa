@@ -10,5 +10,3 @@ class Board(models.Model): #발상의 전환
 
     def str(self):
         return self.title
-
-
