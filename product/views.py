@@ -27,6 +27,19 @@ class UploadProduct(APIView):
         Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id)
         return render(request, 'main.html')
 
+def editproduct(request,pk):
+    edit_product = Product.objects.get(id=pk)
+    if request.method == 'POST':
+        edit_product.title = request.POST['title']
+        edit_product.category = request.POST['category']
+        edit_product.content = request.POST['summernote']
+        edit_product.location = request.POST['location']
+        edit_product.hashtag = request.POST['hashtag']
+        edit_product.save()
+
+    return render(request,'product_edit.html',{'product': edit_product})
+
+
 # 상품 게시판
 class productList(ListView):
     model = Product
