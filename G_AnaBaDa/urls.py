@@ -53,6 +53,8 @@ urlpatterns = [
     #자유게시판
     path('board/',BoardListView.as_view()),
     path('board_upload/',BoardUploadView.as_view()),
+    path('edit/<int:pk>/',views.editproduct),
+    path('delete/<int:pk>/',views.deleteproduct),
 ]
 
 # DEBUG Toolbar
