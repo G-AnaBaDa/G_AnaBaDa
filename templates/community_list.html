@@ -39,15 +39,17 @@
         <table bodder="1">
             <caption>자유게시판</caption><br>
             <thead>
-                <tr><th>제목</th><th>날짜</th><th>작성자</th><th>-</th><th>-</th></tr>
+                <tr><th>제목</th><th>날짜</th><th>작성자</th></tr>
             </thead>
-            {% for product in object_list %}
+            {% for board in object_list %}
             <tbody>
-            <tr><td>{{product.title}}</td><td>{{ product.write_time }}</td><td>{{ product.user_id }}</td></tr>
+            <tr><td><a href="/board/{{ board.id }}">{{board.title}}</a></td><td>{{ board.write_time }}</td><td>{{ board.user_id }}</td></tr>
 
             </tbody>
             {% endfor %}
         </table>
         <button id="write" type="button" onclick="location.href='/board_upload/'">글쓰기</button>
+        <button id="main" type="button" onclick="location.href='/'">메인</button>
+
     </body>
 </html>

@@ -19,10 +19,10 @@ from django.conf.urls import include
 from account.views import MainView, Logout, Login, Register, FindId
 from django.contrib.auth import views as auth_views
 
-from board.views import BoardListView, BoardUploadView, NoticeListView, NoticeDetailView
-from product.views import UploadProduct, productList, productDetail, myPage, editproduct
-from product import views
-
+from board.views import BoardListView, BoardUploadView, NoticeListView, NoticeDetailView,BoardDetailView, BoardEditView
+from product.views import UploadProduct, productList, productDetail, myPage
+from product import views as pviews
+from board import views as bviews
 import mimetypes
 from django.conf import settings
 
@@ -47,13 +47,15 @@ urlpatterns = [
 
     path('upload/', UploadProduct.as_view()),
     path('list/', productList.as_view()),
-    path('list/<int:pk>', views.productDetail),
+    path('list/<int:pk>', pviews.productDetail),
+    path('edit/<int:pk>/', pviews.editproduct),
     path('myPage/', myPage.as_view()),
 
     #자유게시판
     path('board/',BoardListView.as_view()),
     path('board_upload/',BoardUploadView.as_view()),
-    path('edit/<int:pk>/', views.editproduct),
+    path('board/<int:pk>/',BoardDetailView.as_view()),
+    path('board/edit/<int:pk>/', bviews.BoardEditView),
     path('notice/',NoticeListView.as_view()),
     path('notice/<int:pk>', NoticeDetailView.as_view())
 ]

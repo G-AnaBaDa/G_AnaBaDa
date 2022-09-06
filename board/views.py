@@ -29,3 +29,11 @@ class NoticeListView(ListView):
 class NoticeDetailView(DetailView):
     model = notice
     template_name = 'notice_detail.html'
+
+class BoardDetailView(DetailView):
+    model = Board
+    template_name = 'community_detail.html'
+
+def BoardEditView(request,pk):
+    edit_board = Board.objects.get(id=pk)
+    return render(request,'community_edit.html',{'board':edit_board})
