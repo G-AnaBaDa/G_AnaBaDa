@@ -1,0 +1,41 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>상품 등록페이지</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+</head>
+<body>
+<script>
+    function bnt() {
+        alert("제출이 완료되었습니다")
+    }
+</script>
+<form name="uploadForm" method="post" action="/board/edit/{{ board.id }}/">
+    {% csrf_token %}
+    <br>
+    <input type="text" name="title" size="15" value="{{ board.title }}"><br>
+    <div class="form-group">
+        <textarea id=summernote name=summernote class="form-control">
+            {{ board.content }}{{ form.content.value|default_if_none:'' }}
+        </textarea>
+        <script>
+            $('#summernote').summernote({
+                placeholder: '내용을 입력하세요',
+                tabsize: 2,
+                height: 300
+            });
+        </script>
+    </div>
+    <button type="submit" onclick="bnt()">등록하기</button>
+</form>
+
+
+상품에 대한 상세 설명<br>
+<button onclick="location.href='/'">이전</button>
+</body>
+
+</html>
