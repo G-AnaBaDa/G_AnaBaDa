@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from rest_framework.views import APIView
 from .models import Product
@@ -36,7 +36,7 @@ def editproduct(request,pk):
         edit_product.location = request.POST['location']
         edit_product.hashtag = request.POST['hashtag']
         edit_product.save()
-
+        return redirect('/list/')
     return render(request,'product_edit.html',{'product': edit_product})
 
 def deleteproduct(request,pk):
