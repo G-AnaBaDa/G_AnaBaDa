@@ -22,8 +22,6 @@ class Register(APIView):
         phone_number = request.data.get('phone_number', "")
         password = request.data.get('password', "")
 
-        context = {}
-
         if User.objects.filter(account_id=account_id).exists():
             return render(request, 'idexist.html', {'account_id': account_id})
 

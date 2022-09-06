@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render
+from django.views.generic import ListView
 from rest_framework.views import APIView
 from .models import Product
 from django.shortcuts import get_object_or_404
@@ -39,16 +39,16 @@ def editproduct(request,pk):
 
     return render(request,'product_edit.html',{'product': edit_product})
 
+def deleteproduct(request,pk):
+    product  = Product.objects.get(id=pk)
+    product.delete()
+
+    return redirect('/')
 
 # 상품 게시판
 class productList(ListView):
     model = Product
     template_name = 'product_list.html'
-
-# 상품 상세보기
-# class productDetail(DetailView):
-#     model = Product
-#     template_name = 'product_detail.html'
 
 # 상품 상세보기 + 조회수 기능 추가 
 def productDetail(request,pk):
