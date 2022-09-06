@@ -40,6 +40,7 @@ def BoardEditView(request,pk):
         edit_board.title = request.POST['title']
         edit_board.content = request.POST['summernote']
         edit_board.save()
+        return redirect('/board/')
     return render(request,'community_edit.html',{'board':edit_board})
 
 def BoardDeleteView(request,pk):
