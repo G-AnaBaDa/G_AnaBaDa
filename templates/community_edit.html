@@ -14,12 +14,11 @@
         alert("제출이 완료되었습니다")
     }
 </script>
-<form name="uploadForm" method="post" action="/edit/{{ board.id }}">
+<form name="uploadForm" method="post" action="/board/edit/{{ board.id }}/">
     {% csrf_token %}
     <br>
     <input type="text" name="title" size="15" value="{{ board.title }}"><br>
     <div class="form-group">
-        <label></label>
         <textarea id=summernote name=summernote class="form-control">
             {{ board.content }}{{ form.content.value|default_if_none:'' }}
         </textarea>
