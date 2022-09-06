@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from rest_framework.views import APIView
 from .models import Board
 from .models import notice
-
+import datetime
 class BoardListView(ListView):
     model = Board
     template_name = 'community_list.html'
@@ -36,4 +36,13 @@ class BoardDetailView(DetailView):
 
 def BoardEditView(request,pk):
     edit_board = Board.objects.get(id=pk)
+    if request.method == 'POST':
+        edit_board.title = request.POST['title']
+        edit_board.content = request.POST['summernote']
+        edit_board.save()
     return render(request,'community_edit.html',{'board':edit_board})
+
+def BoardDeleteView(request,pk):
+    delete_board = Board.objects.get(id=pk)
+    delete_board.delete()
+    return redirect('/board/')

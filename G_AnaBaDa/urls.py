@@ -56,6 +56,7 @@ urlpatterns = [
     path('board_upload/',BoardUploadView.as_view()),
     path('board/<int:pk>/',BoardDetailView.as_view()),
     path('board/edit/<int:pk>/', bviews.BoardEditView),
+    path('board/delete/<int:pk>/', bviews.BoardDeleteView),
     path('notice/',NoticeListView.as_view()),
     path('notice/<int:pk>', NoticeDetailView.as_view())
 ]
