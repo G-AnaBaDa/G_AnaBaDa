@@ -34,9 +34,9 @@
                     width="80" height="80"></th>
         </tr>
     </table>
-    <input type="text" name="title" size="15" placeholder="제목"><br>
+    <input type="text" name="title" size="15" value="{{ product.title }}"><br>
     <select name="category">
-        <option selected>카테고리</option>
+        <option selected>{{ product.category }}</option>
         <option value="의류">의류</option>
         <option value="가전제품">가전제품</option>
         <option value="음식">음식</option>
@@ -45,7 +45,7 @@
     <div class="form-group">
         <label>내용</label>
         <textarea id=summernote name=summernote class="form-control">
-            {{ form.content.value|default_if_none:'' }}
+            {{ product.content }}{{ form.content.value|default_if_none:'' }}
         </textarea>
         <script>
             $('#summernote').summernote({
@@ -56,14 +56,14 @@
         </script>
     </div>
     <select name="location">
-        <option value="0" selected>지역</option>
+        <option value="0" selected>{{ product.location }}</option>
         <option value="서울특별시">서울특별시</option>
         <option value="경기도">경기도</option>
         <option value="강원도">강원도</option>
         <option value="전라도">전라도</option>
         <option value="경상도">경상도</option>
     </select><br>
-    <input type="text" name='hashtag' size="15" placeholder="#태그"><br>
+    <input type="text" name='hashtag' size="15" value="{{ product.hashtag }}"><br>
     <button type="submit" onclick="bnt()">등록하기</button>
 </form>
 
