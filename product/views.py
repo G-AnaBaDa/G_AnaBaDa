@@ -40,10 +40,10 @@ def editproduct(request,pk):
     return render(request,'product_edit.html',{'product': edit_product})
 
 def deleteproduct(request,pk):
-    product  = Product.objects.get(id=pk)
+    product = Product.objects.get(id=pk)
     product.delete()
 
-    return redirect('/')
+    return redirect('/list/')
 
 # 상품 게시판
 class productList(ListView):
