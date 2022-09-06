@@ -12,3 +12,6 @@ class Product(models.Model):
     location = models.CharField(default='', null=False, blank=False, max_length=10)
     hashtag = models.CharField(default='', null=True, blank=True, max_length=10)
     count = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.title
