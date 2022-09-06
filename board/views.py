@@ -1,12 +1,8 @@
 from django.shortcuts import render
-
-# Create your views here.
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from rest_framework.views import APIView
-
-from account.models import User
-from board.models import Board
+from .models import Board
+from .models import notice
 
 class BoardListView(ListView):
     model = Board
@@ -25,3 +21,11 @@ class BoardUploadView(APIView):
 
 
         return render(request,'main.html')
+
+class NoticeListView(ListView):
+    model = notice
+    template_name = 'notice_list.html'
+
+class NoticeDetailView(DetailView):
+    model = notice
+    template_name = 'notice_detail.html'
