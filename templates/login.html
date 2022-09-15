@@ -4,16 +4,16 @@
 <h2> 교환합시다(가제)</h2>
 <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MjJfMjkg%2FMDAxNjU4NDgwNDA3NTQx.3JHQyrnMZK0_aXp8gt2Df4_xKeGdo_IZ1IT_HcsWBnIg.u9dPjXq3nkaQLrVivrVfW94_8MoRo1uC0nD5V0obxmog.JPEG.hyejun790%2F2887450690_fS8rcZz9_5f0d35e073343fe0ebb6aae2c5f5891e85164745.jpg&type=a340"
      width="50" height="50"><br>
-<form method="post" action="/login/"  >
+<form method="post" action="/account/login/" >
     {% csrf_token %}
     아이디 : <input type="text" name="account_id">
     비밀번호 : <input type="password" name="password">
     <button type="submit"  value="로그인">로그인</button><br>
-    <button onclick="location.href='/'" >메인 페이지</button><br>
     <span>교환합시다에 처음이신가요?</span>
-    <a href="/signup/">회원가입</a>}
-
 </form>
+<button onclick="location.href='/'" >메인 페이지</button><br>
+<button onclick="location.href='/account/signup/'" >회원가입</button><br>
+
 </body>
 </html>
 
