@@ -26,12 +26,12 @@
 <br>
 
 
-<button id="prev" type="button" onclick="location.href='/list/'">뒤로가기</button>
+<button id="prev" type="button" onclick="location.href='/product/list/'">뒤로가기</button>
 <script>markupStr</script>
 
 {% if request.session.id|safe  == product.writer|safe %}
-    <button onclick="location.href='/edit/{{ product.pk }}/'">수정하기</button><br>
-    <button onclick="location.href='/delete/{{ product.pk }}/'">삭제하기</button><br>
+    <button onclick="location.href='/product/edit/{{ product.pk }}/'">수정하기</button><br>
+    <button onclick="location.href='/product/delete/{{ product.pk }}/'">삭제하기</button><br>
 {% endif %}
 </body>
 </html>

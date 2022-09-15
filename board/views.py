@@ -19,8 +19,8 @@ class BoardUploadView(APIView):
         user_id = request.user
         Board.objects.create(title=title,content=content,user_id=user_id)
 
+        return redirect('/board/list/')
 
-        return render(request,'main.html')
 
 class NoticeListView(ListView):
     model = notice
@@ -40,10 +40,10 @@ def BoardEditView(request,pk):
         edit_board.title = request.POST['title']
         edit_board.content = request.POST['summernote']
         edit_board.save()
-        return redirect('/board/')
+        return redirect('/board/list/')
     return render(request,'community_edit.html',{'board':edit_board})
 
 def BoardDeleteView(request,pk):
     delete_board = Board.objects.get(id=pk)
     delete_board.delete()
-    return redirect('/board/')
+    return redirect('/board/list/')

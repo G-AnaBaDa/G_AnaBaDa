@@ -4,15 +4,15 @@
     {% if E.exists %}
         <h1>등록된 가입자 아이디 명은</h1><hr>
         <div>  {{ E.get }} 입니다.</div><br>
-        <form method="get" action="/login/">
+        <form method="get" action="/account/login/">
             <input type="submit" value="로그인 하기">
         </form>
-        <form method="get" action="/findPw/">
+        <form method="get" action="/account/password_reset/">
             <input type="submit" value="비밀번호 찾기">
         </form>
     {% else %}
         <h1>등록되지 않은 이메일입니다</h1><hr>
-        <button  onclick="location.href='/findId/'"> 돌아가기</button>
+        <button onclick="location.href='/account/findId/'"> 돌아가기</button>
     {% endif %}
 
     </body>

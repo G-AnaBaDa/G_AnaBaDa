@@ -27,7 +27,7 @@ class UploadProduct(APIView):
         location = request.POST.get('location')
         hashtag = request.POST.get('hashtag')
         Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id)
-        return redirect('/list/')
+        return redirect('/product/list/')
 
 def editproduct(request,pk):
     edit_product = Product.objects.get(id=pk)
@@ -38,14 +38,14 @@ def editproduct(request,pk):
         edit_product.location = request.POST['location']
         edit_product.hashtag = request.POST['hashtag']
         edit_product.save()
-        return redirect('/list/')
+        return redirect('/product/list/')
     return render(request,'product_edit.html',{'product': edit_product})
 
 def deleteproduct(request,pk):
     product = Product.objects.get(id=pk)
     product.delete()
 
-    return redirect('/list/')
+    return redirect('/product/list/')
 
 # 상품 게시판
 class productList(ListView):

@@ -23,7 +23,7 @@ class Register(APIView):
         password = request.data.get('password', "")
 
         if User.objects.filter(account_id=account_id).exists():
-            return render(request, 'idexist.html', {'account_id': account_id})
+            return render(request, 'signup_exist.html', {'account_id': account_id})
 
         User.objects.create_user(account_id=account_id, password=password, name=name, email=email, nickname=nickname,
                               phone_number=phone_number)
@@ -66,9 +66,15 @@ class MainView(APIView):
 #아이디 찾기
 class FindId(APIView):
     def get(self,request):
-        return render(request, 'find_account.html')
+        return render(request, 'find_Id.html')
     def post(self,request):
         email = request.data.get('email')
         E = User.objects.filter(email=email)
 #E가 있는객체인지, 빈 객체인지는  결과 템플릿에서 if문에 나눠서 출력할것임
-        return render(request, 'find_accountOK.html', {'E':E})
+        return render(request, 'find_Id_result.html', {'E':E})
+
+class FindPW(APIView):
+    def get(self,request):
+        return render(request,'registration/password_reset_form.html')
+    # def post (self,request):
+

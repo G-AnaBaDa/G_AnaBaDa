@@ -142,7 +142,7 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'won05121@gmail.com'
 
 # 발신할 메일의 비밀번호
-EMAIL_HOST_PASSWORD = 'sijfumazvfjqghjl'
+EMAIL_HOST_PASSWORD = 'untg mtsx etwp crtv'
 
 # TLS 보안 방법
 EMAIL_USE_TLS = True

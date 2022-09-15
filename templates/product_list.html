@@ -9,11 +9,11 @@
 {{ context_data|safe }}
     {% for product in object_list %}
         <br>
-            <th style="width: 30px;height: 30px " > <a href='/list/{{ product.id }}'>{{ product.content|safe }}  {# 이렇게 하면안되고 섬머노트의 첫번째 img파일을 파싱?해서 링크를 받아와서 실행해야할듯 #}
+            <th style="width: 30px;height: 30px " > <a href='/product/list/{{ product.id }}'>{{ product.content|safe }}  {# 이렇게 하면안되고 섬머노트의 첫번째 img파일을 파싱?해서 링크를 받아와서 실행해야할듯 #}
                     </a></th>
         </tr>
         <tr>
-            <th style="padding: 5;"><a href="">제목</a><img
+            <th style="padding: 5;">제목</a><img
                     src="data:image/png;base64,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"
                     width="20px" height="20px">{{ product.title }}</th>
             "
@@ -34,7 +34,7 @@
     {% endfor %}
 </table>
 {% if request.session.id %}
-    <button onclick="location.href='/upload/'">상품 업로드</button>
+    <button onclick="location.href='/product/upload/'">상품 업로드</button>
 {% endif %}
 
 </body>

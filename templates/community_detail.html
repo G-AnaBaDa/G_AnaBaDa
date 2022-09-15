@@ -14,7 +14,7 @@
         <td>등록일 {{ board.write_time }}</td>
     </tr>
 </table>
-<button id="prev" type="button" onclick="location.href='/board/'">뒤로가기</button>
+<button id="prev" type="button" onclick="location.href='/board/list/'">뒤로가기</button>
 
 {% if request.session.id|safe  == board.user_id|safe  %}
 

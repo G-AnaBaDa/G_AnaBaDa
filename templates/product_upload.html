@@ -14,9 +14,8 @@
         alert("제출이 완료되었습니다")
     }
 </script>
-<form name="uploadForm" method="post" action="/upload/">
+<form name="uploadForm" method="post" action="/product/upload/">
     {% csrf_token %}
-    <button onclick="location.href=''">+테스트</button>
     <br>
     <table>
         <tr>
@@ -71,7 +70,7 @@
 
 
 상품에 대한 상세 설명<br>
-<button onclick="location.href='/myPage/'">이전</button>
+<button onclick="location.href='/product/list/'">이전</button>
 </body>
 
 </html>
