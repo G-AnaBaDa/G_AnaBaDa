@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
+from cgitb import html
+
+from django.http import request
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from rest_framework.views import APIView
 from .models import Product
-from django.shortcuts import get_object_or_404
 from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
 # 마이 페이지
 class myPage(APIView):
     def get(self, request):
@@ -24,8 +27,17 @@ class UploadProduct(APIView):
         user_id = request.user
         location = request.POST.get('location')
         hashtag = request.POST.get('hashtag')
+
+        be = BeautifulSoup(summernote)
+
+        images = be.find_all("img")
+        for image in images:
+            context_data = (image["src"])
+            print(context_data)
+
+
         Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id)
-        return render(request, 'main.html')
+        return render(request, 'product_list.html',{'context_data':context_data})
 
 def editproduct(request,pk):
     edit_product = Product.objects.get(id=pk)
