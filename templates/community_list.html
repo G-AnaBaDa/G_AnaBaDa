@@ -1,55 +1,74 @@
 <!DOCTYPE html>
 <html>
-    <head><title>자유게시판</title></head>
-    <style>
-        #find{
-            position: relative;
-            left: 400px;
-        }
-        table{
-            border-collapse: collapse;
-        }
-        td,th{
-            text-align: left;
-            padding: 5px;
-            height: 15px;
-            width: 100px;
-        }
-        thead{
-            background: darkgray;
-            color: yellow;
-        }
-        tbody tr:nth-child(even){
-            background: aliceblue;
-        }
-        tbody tr:hover {
-            background: pink;
-        }
-        #write{
-            position: relative;
-            left: 600px;
-        }
-    </style>
-    <body>
-        <h3>교환합시다(가제)</h3><hr><br>
-        <div id="find">
-            <input type="text" placeholder="검색어 입력">
-            <button>검색</button>
-        </div>
-        <table bodder="1">
-            <caption>자유게시판</caption><br>
-            <thead>
-                <tr><th>제목</th><th>날짜</th><th>작성자</th></tr>
-            </thead>
-            {% for board in object_list %}
-            <tbody>
-            <tr><td><a href="/board/{{ board.id }}">{{board.title}}</a></td><td>{{ board.write_time }}</td><td>{{ board.user_id }}</td></tr>
+<head><title>자유게시판</title></head>
+<style>
+    #find {
+        position: relative;
+        left: 400px;
+    }
 
-            </tbody>
-            {% endfor %}
-        </table>
-        <button id="write" type="button" onclick="location.href='/board_upload/'">글쓰기</button>
-        <button id="main" type="button" onclick="location.href='/'">메인</button>
+    table {
+        border-collapse: collapse;
+    }
 
-    </body>
+    td, th {
+        text-align: left;
+        padding: 5px;
+        height: 15px;
+        width: 100px;
+    }
+
+    thead {
+        background: darkgray;
+        color: yellow;
+    }
+
+    tbody tr:nth-child(even) {
+        background: aliceblue;
+    }
+
+    tbody tr:hover {
+        background: pink;
+    }
+
+    #write {
+        position: relative;
+        left: 600px;
+    }
+</style>
+<body>
+<h3>교환합시다(가제)</h3>
+<hr>
+<br>
+<div id="find">
+    <input type="text" placeholder="검색어 입력">
+    <button>검색</button>
+</div>
+<table bodder="1">
+    <caption>자유게시판</caption>
+    <br>
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>날짜</th>
+        <th>작성자</th>
+    </tr>
+    </thead>
+    {% for board in object_list %}
+        <tbody>
+        <tr>
+            <td><a href="/board/{{ board.id }}">{{ board.title }}</a></td>
+            <td>{{ board.write_time }}</td>
+            <td>{{ board.user_id }}</td>
+        </tr>
+
+        </tbody>
+    {% endfor %}
+</table>
+{% if request.session.id %}
+    <button onclick="location.href='/board_upload/'">글쓰기</button>
+{% endif %}
+<button id="main" type="button" onclick="location.href='/'">메인</button>
+
+</body>
 </html>

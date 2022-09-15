@@ -4,19 +4,23 @@
     <h2>교환합시다(가제)</h2>
 </head>
 <body>
-<button onclick="location.href='/'" >메인 페이지</button><br>
+<button onclick="location.href='/'">메인 페이지</button>
+<br>
 <table>
     <tr>
         <td>제목 {{ board.title }}</td>
         <td>회원id {{ board.user_id }}</td>
         <td>내용 {{ board.content | safe }}</td>
         <td>등록일 {{ board.write_time }}</td>
-
     </tr>
 </table>
-        <button id="prev" type="button" onclick="location.href='/board/'">뒤로가기</button>
-        <button id="edit" type="button" onclick="location.href='/board/edit/{{ board.id }}/'">수정</button>
-        <button id="edit" type="button" onclick="location.href='/board/delete/{{ board.id }}/'">삭제</button>
+<button id="prev" type="button" onclick="location.href='/board/'">뒤로가기</button>
+
+{% if request.session.id|safe  == board.user_id|safe  %}
+
+    <button id="edit" type="button" onclick="location.href='/board/edit/{{ board.id }}/'">수정</button>
+    <button id="edit" type="button" onclick="location.href='/board/delete/{{ board.id }}/'">삭제</button>
+{% endif %}
 
 </body>
 </html>
