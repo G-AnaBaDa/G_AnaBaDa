@@ -4,8 +4,9 @@ from django.http import request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from rest_framework.views import APIView
-from .models import Product
+from .models import Product,Comment
 from datetime import datetime, timedelta
+from django.contrib.auth.decorators import login_required
 # 마이 페이지
 class myPage(APIView):
     def get(self, request):
@@ -71,3 +72,19 @@ def productDetail(request,pk):
         product.count += 1
         product.save()
     return response
+
+
+
+@login_required
+def create_comment(request,pk):
+    if request.method == 'POST':
+        comment = Comment()
+        comment.content = request.POST.get('content')
+        comment.user = request.user
+        comment.product = Product.objects.get(id=pk)
+        comment.save()
+
+        return redirect('/product/list/')
+    return render(request,'product_list.html')
+
+
