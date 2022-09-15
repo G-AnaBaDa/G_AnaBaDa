@@ -40,6 +40,7 @@
             </thead>
             {% for notice in object_list %}
             <tbody>
+
             <tr><td>{{notice.id}}</td><td><a href="/notice/{{ notice.id }}">{{ notice.title }}</a></td><td>{{ notice.write_time }}</td></tr>
             </tbody>
             {% endfor %}

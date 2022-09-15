@@ -12,6 +12,7 @@
             {% for my in myItem %}
                 <h4>{{ my.title }}</h4>
                 <h4>{{ my.category }}</h4>
+                <h4>{{ my.content |safe}}</h4>
                 <h4>{{ my.hashtag }}</h4>
 
                 {% endfor %}

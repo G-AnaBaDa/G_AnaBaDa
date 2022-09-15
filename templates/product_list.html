@@ -6,12 +6,11 @@
 <body>
 <table border="1">
 <button onclick="location.href='/'" >메인 페이지</button><br>
-
+{{ context_data|safe }}
     {% for product in object_list %}
-        <tr>
-            <th style="padding: 15;"><a href='/list/{{ product.id }}'><img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgDwB8H-1OqvTcHZE5TJITkhlz7Kz8-F6DIQ&usqp=CAU"
-                    width="80px" height="80px"></a></th>
+        <br>
+            <th style="width: 30px;height: 30px " > <a href='/list/{{ product.id }}'>{{ product.content|safe }}  {# 이렇게 하면안되고 섬머노트의 첫번째 img파일을 파싱?해서 링크를 받아와서 실행해야할듯 #}
+                    </a></th>
         </tr>
         <tr>
             <th style="padding: 5;"><a href="">제목</a><img
@@ -34,6 +33,9 @@
         </tr>
     {% endfor %}
 </table>
-<button onclick="location.href='NewGoods.html'">글쓰기</button>
+{% if request.session.id %}
+    <button onclick="location.href='/upload/'">상품 업로드</button>
+{% endif %}
+
 </body>
 </html>
