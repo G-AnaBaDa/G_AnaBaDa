@@ -15,3 +15,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    product = models.ForeignKey('product.Product', on_delete=models.CASCADE,null=True,related_name='comments')
+    user = models.ForeignKey('account.User', on_delete=models.CASCADE,null=True)
+    content = models.CharField(default='',null=True,max_length=200)
+    created_dt = models.DateField(auto_now_add=True)
+    updated_dt = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.content

@@ -25,6 +25,10 @@
 <div>#해시태그 {{ object.hashtag }}</div>
 <br>
 
+{% for comment in product.comments.all %}
+    {{ comment.user }} - {{ comment.content }}<br>
+{% endfor %}
+
 
 <button id="prev" type="button" onclick="location.href='/product/list/'">뒤로가기</button>
 <script>markupStr</script>
@@ -32,6 +36,13 @@
 {% if request.session.id|safe  == product.writer|safe %}
     <button onclick="location.href='/product/edit/{{ product.pk }}/'">수정하기</button><br>
     <button onclick="location.href='/product/delete/{{ product.pk }}/'">삭제하기</button><br>
+{% endif %}
+{% if user.is_authenticated %}
+<form action="/product/comment/{{ product.pk }}/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="content" id="content" placeholder="댓글을 입력하세요">
+    <input type="submit" value="submit">
+</form>
 {% endif %}
 </body>
 </html>

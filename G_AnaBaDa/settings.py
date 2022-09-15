@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "product",
     "board",
-    "bs4",
 
 ]
 
