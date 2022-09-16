@@ -5,9 +5,6 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from .models import User
 
-
-# id, account_id, password, email, nickname, name, phone_number
-
 # 회원가입
 class Register(APIView):
     def get(self, request):
@@ -76,5 +73,4 @@ class FindId(APIView):
 class FindPW(APIView):
     def get(self,request):
         return render(request,'registration/password_reset_form.html')
-    # def post (self,request):
 

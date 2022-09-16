@@ -3,7 +3,6 @@ from django.views.generic import ListView, DetailView
 from rest_framework.views import APIView
 from .models import Board
 from .models import notice
-import datetime
 class BoardListView(ListView):
     model = Board
     template_name = 'community_list.html'
