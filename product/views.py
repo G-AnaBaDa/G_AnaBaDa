@@ -1,16 +1,13 @@
-from cgitb import html
-
-from django.http import request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from rest_framework.views import APIView
 from .models import Product,Comment
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
+
 # 마이 페이지
 class myPage(APIView):
     def get(self, request):
-        name = request.session.get('name')
         myItem = Product.objects.filter(writer_id=request.session.get('id'))
         # 내 세션(나의 id)id값이 product DB에 저장된 writer_id와 일치하는것만 가져오기
         return render(request, 'mypage.html', {'myItem': myItem})
@@ -56,7 +53,6 @@ class productList(ListView):
 # 상품 상세보기 + 조회수 기능 추가 
 def productDetail(request,pk):
     product = get_object_or_404(Product, id=pk)
-    template_name = 'product_detail.html'
     response = render(request, 'product_detail.html', {'product':product })
     expire_date, now = datetime.now(), datetime.now()
     expire_date += timedelta(days=1)

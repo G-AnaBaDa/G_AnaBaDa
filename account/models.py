@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-
-# id, account_id, email, nickname, name, phone_number
 class UserManager(BaseUserManager):
     # 일반 user 생성
     def create_user(self, account_id, email, nickname, name, phone_number, password=None):
