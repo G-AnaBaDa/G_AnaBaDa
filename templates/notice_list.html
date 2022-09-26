@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head><title>공지사항</title></head>
-    <style>
-        #find{
-            position: relative;
-            left: 400px;
-        }
-        table{
-            border-collapse: collapse;
-        }
-        td,th{
-            text-align: left;
-            padding: 5px;
-            height: 15px;
-            width: 100px;
-        }
-        thead{
-            background: darkgray;
-            color: yellow;
-        }
-        tbody tr:nth-child(even){
-            background: aliceblue;
-        }
-        tbody tr:hover {
-            background: pink;
-        }
-        #write{
-            position: relative;
-            left: 600px;
-        }
-    </style>
-    <body>
-        <h3>교환합시다(가제)</h3><hr><br>
+<style>
+    caption{
+        color: darkgrey;
+    }
+</style>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="/">G-ANABADA</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">검색하기</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            <br>
+            <div style="color: grey">공지사항</div>
+                <table class="table">
+                    <thead style="background-color:#1f2247; color: white">
+                        <tr>
+                            <th scope="col">게시글 번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성시간</th>
+                        </tr>
+                    </thead>
+                    {% for notice in object_list %}
+                    <tbody>
+                        <tr><td>{{notice.id}}</td><td><a href="/board/notice/{{ notice.id }}">{{ notice.title }}</a></td><td>{{ notice.write_time }}</td></tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                    <button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">메인 페이지</button>
 
-        <table bodder="1">
-            <caption>공지사항</caption><br>
-            <thead>
-                <tr><th>게시글 번호</th><th>제목</th><th>작성시간</th>
-            </thead>
-            {% for notice in object_list %}
-            <tbody>
-
-            <tr><td>{{notice.id}}</td><td><a href="/notice/{{ notice.id }}">{{ notice.title }}</a></td><td>{{ notice.write_time }}</td></tr>
-            </tbody>
-            {% endfor %}
-        </table>
-    </body>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" style="color:#1f2247"><</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#" style="color:#1f2247">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#" style="color:#1f2247">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#" style="color:#1f2247">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" style="color:#1f2247">></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

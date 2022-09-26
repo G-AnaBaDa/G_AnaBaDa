@@ -1,63 +1,112 @@
+<!DOCTYPE>
+<html>
+    <style>
+        table{
+            font-weight: bold;
+            border-left: 3px solid #369;
+        }
+        tbody tr:hover{
+            background: floralwhite;
+        }
+        table td{
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+        }
+        #td1,#td2,#td3,#td4,#td5,#td6{
+            height: 40px;
+        }
+    </style>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
 
-<h1>회원가입폼</h1>
-<form name="f1" method="post" action="/account/signup/">
-{% csrf_token %}
-    <table width="300" border="1" cellpadding="2" cellspacing="0">
-    <tbody>
-    <tr>
-        <td>아이디 : </td>
-        <td><input type="text" name="account_id"></td>
-    </tr>
-    <tr>
-        <td>비밀번호 : </td>
-        <td><input type="password" name="password"></td>
-    </tr>
-    <tr>
-        <td>이름 : </td>
-        <td><input type="text" name="name"></td>
-    </tr>
-    <tr>
-        <td>이메일 : </td>
-        <td><input type="text" name="email"></td>
-    </tr>
-        <tr>
-        <td>닉네임 : </td>
-        <td><input type="text" name="nickname"></td>
-    </tr>
-        <tr>
-        <td>전화번호 : </td>
-        <td><input type="text" name="phone_number"></td>
-    </tr>
-    </tbody>
-    </table>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">G-ANABADA</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                        <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">검색하기</button>
+                        </form>
+                    </div>
+            </div>
+        </nav>
 
-<button type="submit" onclick="memReg()" >회원가입하기</button>
-</form>
-<button onclick="location.href='/'" >메인 페이지</button>
+<div class="row text-center" style="width: 100%">
+        <div style="width: 20%; float:none; margin:0 auto" >
+           <div class="position-relative">
+           <div class="position-absolute top-0 start-50 translate-middle-x">
+          <h2>회원가입</h2><br>
+            <form name="f1" method="post" action="/account/signup/">
+            {% csrf_token %}
+                <table class="type03">
+                <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td><input id="td1" type="text" name="account_id" size="35" placeholder="영문 혹은 영문, 숫자 입력"></td>
+                </tr>
+                <tr>
+                    <td>PassWord </td>
+                    <td><input id="td2" type="password" name="password" size="35" placeholder="영문자, 숫자, 특수문자 조합하여 입력"></td>
+                </tr>
+                <tr>
+                    <td>Name </td>
+                    <td><input id="td3" type="text" name="name" size="35" placeholder="실명 입력"></td>
+                </tr>
+                <tr>
+                    <td>E-mail </td>
+                    <td><input id="td4" type="text" name="email" size="35" placeholder="example@anabada.com"></td>
+                </tr>
+                    <tr>
+                    <td>NickName </td>
+                    <td><input id="td5" type="text" name="nickname" size="35"></td>
+                </tr>
+                    <tr>
+                    <td>PhoneNumber </td>
+                    <td><input id="td6" type="text" name="phone_number" size="35" placeholder="'-'없이 입력"></td>
+                </tr>
+                </tbody>
+                </table>
+            <br>
+                <button class="btn text-white" style="background-color:#1f2247" type="submit" onclick="memReg()" >회원가입</button><br>
+            </form>
+                <button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">메인 페이지</button>
+               </div>
+           </div>
+        </div>
+    </div>
+    <script>
+    function memReg() {
+        var form = document.f1;
+        if (form.account_id.value=="") {
+            alert("아이디를 입력해 주십시오.");
+            form.m_id.focus();
+            return;
+        }
+        if (form.passwd.value=="") {
+            alert("비밀번호를 입력해 주십시오.");
+            form.passwd.focus();
+            return;
+        }
+        if (form.name.value=="") {
+            alert("이름을 입력해 주십시오.");
+            form.name.focus();
+            return;
+        }
 
-
-<script>
-function memReg() {
-    var form = document.f1;
-    if (form.account_id.value=="") {
-        alert("아이디를 입력해 주십시오.");
-        form.m_id.focus();
-        return;
+        form.submit();
     }
-    if (form.passwd.value=="") {
-        alert("비밀번호를 입력해 주십시오.");
-        form.passwd.focus();
-        return;
-    }
-    if (form.name.value=="") {
-        alert("이름을 입력해 주십시오.");
-        form.name.focus();
-        return;
-    }
+    </script>
+    {% if message %}
+    <script>alert('{{ message }}');</script>
+    {% endif %}
 
-    form.submit();
-}
-</script>
-{% if message %}
-<script>alert('{{ message }}');</script>
-{% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+</html>

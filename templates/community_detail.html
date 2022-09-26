@@ -1,26 +1,76 @@
 <!DOCTYPE>
 <html>
 <head>
-    <h2>교환합시다(가제)</h2>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<button onclick="location.href='/'">메인 페이지</button>
-<br>
-<table>
-    <tr>
-        <td>제목 {{ board.title }}</td>
-        <td>회원id {{ board.user_id }}</td>
-        <td>내용 {{ board.content | safe }}</td>
-        <td>등록일 {{ board.write_time }}</td>
-    </tr>
-</table>
-<button id="prev" type="button" onclick="location.href='/board/list/'">뒤로가기</button>
-
-{% if request.session.id|safe  == board.user_id|safe  %}
-
-    <button id="edit" type="button" onclick="location.href='/board/edit/{{ board.id }}/'">수정</button>
-    <button id="edit" type="button" onclick="location.href='/board/delete/{{ board.id }}/'">삭제</button>
-{% endif %}
-
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="/">G-ANABADA</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">검색하기</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+                 <div class="row">
+                     <table id="datatable-scroller"
+                         class="table table-bordered tbl_Form">
+                       <caption></caption>
+                       <colgroup>
+                      <col width="250px" />
+                      <col />
+                       </colgroup>
+                       <tbody>
+                            <tr>
+                             <th class="active" >제목 </th>
+                                 <td>{{ board.title }}</td>
+                          </tr>
+                          <tr>
+                             <th class="active">등록일 </th>
+                                  <td>{{ board.write_time }}</td>
+                          </tr>
+                          <tr>
+                             <th class="active" >회원id </th>
+                                 <td>{{ board.user_id }}</td>
+                          </tr>
+                            <tr>
+                             <th class="active" >내용 </th>
+                                 <td>{{ board.content | safe }}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                <button class="btn btn-outline-secondary" id="main" type="button" onclick="location.href='/'">메인 페이지</button>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    {% if request.session.id|safe  == board.user_id|safe  %}
+                    <button class="btn text-white" style="background-color:#1f2247" id="edit" type="button" onclick="location.href='/board/edit/{{ board.id }}/'">수정</button>
+                    <button class="btn text-white" style="background-color:#1f2247" id="edit" type="button" onclick="location.href='/board/delete/{{ board.id }}/'">삭제</button>
+                    <button class="btn text-white" style="background-color:#1f2247" id="prev" type="button" onclick="location.href='/board/list/'">이전</button>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>
