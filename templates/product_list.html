@@ -1,41 +1,96 @@
 <!DOCTYPE>
 <html>
 <head>
-    <h2>교환합시다(가제)</h2>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
+
 <body>
-<table border="1">
-<button onclick="location.href='/'" >메인 페이지</button><br>
-{{ context_data|safe }}
-    {% for product in object_list %}
-        <br>
-            <th style="width: 30px;height: 30px " > <a href='/product/list/{{ product.id }}'>{{ product.content|safe }}  {# 이렇게 하면안되고 섬머노트의 첫번째 img파일을 파싱?해서 링크를 받아와서 실행해야할듯 #}
-                    </a></th>
-        </tr>
-        <tr>
-            <th style="padding: 5;">제목</a><img
-                    src="data:image/png;base64,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"
-                    width="20px" height="20px">{{ product.title }}</th>
-            "
-        </tr>
-        <tr>
-            <th style="padding: 5;">작성자 {{ product.writer }}</th>
-        </tr>
-        <tr>
-        <tr>
-            <th style="padding: 5;">등록시간 {{ product.write_time }}</th>
-        </tr>
-        <tr>
-            <th style="padding: 5;">지역 {{ product.location }}</th>
-        </tr>
-        <tr>
-            <th style="padding: 5;">조회수{{ product.count }}</th>
-        </tr>
-    {% endfor %}
-</table>
-{% if request.session.id %}
-    <button onclick="location.href='/product/upload/'">상품 업로드</button>
-{% endif %}
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">G-ANABADA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                    <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">검색하기</button>
+                    </form>
+                </div>
+        </div>
+    </nav>
+    <div class="row text-center" style="width: 100%">
+        <div style="width: 60%; float:none; margin:0 auto" >
+
+        <div class="row">
+            <div class="col">
+                    {# 카드 시작 코드 #}
+                <div class="card" style="width: 18rem;">
+                    {{ context_data|safe }}
+                        {% for product in object_list %}
+                  <img src="http://image.msscdn.net/images/gift_img/2021061611090700000018074.jpg" class="card-img-top" alt="product">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title->{{ product.title }}</h5>
+                    <p class="card-text">작성자:{{ product.writer }}</p>
+                    <div>등록시간 {{ product.write_time }}</div>
+                    <div>지역 {{ product.location }}</div>
+                    <div>조회수{{ product.count }}</div>
+                    <a href='/product/list/{{ product.id }}' class="btn btn-primary">{{ product.content|safe }}</a>
+                  </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    <br>
+
+    <div class="container">
+        <div style="color: grey">상품리스트</div>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered">
+                        <thead style="background-color:#1f2247; color: white">
+                            <tr>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">지역</th>
+                                <th scope="col">날짜</th>
+                                <th scope="col">조회수</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {{ context_data|safe }}
+                            {% for product in object_list %}
+
+                            <tr>
+                                <td><a href='/product/list/{{ product.id }}'>{{ product.content|safe }}</a></td>
+                                <td>{{ product.writer }}</td>
+                                <td>{{ product.location }}</td>
+                                <td>{{ product.write_time }}</td>
+                                <td>{{ product.count }}</td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+    </div>
+
+                <br>
+
+            {% if request.session.id %}
+                <button class="btn text-white" style="background-color:#1f2247" onclick="location.href='/product/upload/'">상품 업로드</button>
+            {% endif %}
+                <br><br>
+                <button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">메인 페이지</button>
+
+        <br><br>
+
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>
 </html>

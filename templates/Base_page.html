@@ -1,45 +1,59 @@
 <!DOCTYPE>
 <html>
 <head>
-    <h2>
-        교환 합시다(가제)<br>
-    </h2>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<div id="middle">
-    <div class="login" id="middle_right">
-        <img src="https://blogfiles.pstatic.net/MjAyMjA3MTJfMjI1/MDAxNjU3NTk2MTAzOTE1.kR41rHKNfby71qr9nE9YvklQra956zvlpcKrCJ9kOZog.K6YpMIQp1O4v5DVz9Vkm2cvhPacccR2u73XklToGXEYg.JPEG.joys0919/IMG_2155.JPG"
-             width="50" height="50"><br>
-        <button onclick="location.href='/account/login/'">로그인</button>
-        <br>
-        <button onclick="location.href='/account/signup/'">회원가입</button>
-        <br>
-        <button onclick="location.href='/board/list/'">자유게시판</button>
-        <br>
-        <button onclick="location.href='/board/notice/'">공지사항</button>
-        <br>
-        <button onclick="location.href='/product/list/'">상품 리스트</button>
-
-        <br>
-
-        <p class="find">
-            <button onclick="location.href='/account/findId/'">아이디 찾기</button>
-            <button onclick="location.href='/account/password_reset/'">비밀번호 찾기</button>
-        </p>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="/">G-ANABADA</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">검색하기</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <div id="middle_left"><img src="https://cdn-icons-png.flaticon.com/512/1160/1160358.png" class="img-fluid" alt="..."></div>
+                <hr>
+                <div id="middle_left1">물건 교환 커뮤니티</div>
+                <div id="middle_left2">서로의 물건을 통해서 추억을 공유할 수 있는 커뮤니티
+                집에서 놀고 있는 물건들을 필요한 사람들에게 내가 필요한 물건과 교환하여 삶을 효용성을 높여보자!
+                </div>
+                <hr>
+                <img src="https://cdn-icons-png.flaticon.com/512/1160/1160358.png" class="img-fluid" alt="...">
+            </div>
+            <div class="col-4">
+                <div class="login" id="middle_right">
+                    <br>
+                    <br>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn text-white" style="background-color:#1f2247" type="button" onclick="location.href='/account/login/'">로그인</button>
+                        <button class="btn text-white" style="background-color:#1f2247" type="button" onclick="location.href='/account/signup/'">회원가입</button>
+                        <br>
+                            <div style="text-align:center">
+                                <a href='/account/findId/'>아이디 찾기</a>
+                                <a href='/account/password_reset/'>비밀번호 찾기</a>
+                            </div>
+                        <hr>
+                        <button class="btn text-white" style="background-color:#1f2247" type="button" onclick="location.href='/board/list/'">자유게시판</button>
+                        <br>
+                        <button class="btn text-white" style="background-color:#1f2247" type="button" onclick="location.href='/board/notice/'">공지사항</button>
+                        <br>
+                        <button class="btn text-white" style="background-color:#1f2247" type="button" onclick="location.href='/product/list/'">상품 리스트</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="middle_left"><img
-            src="https://postfiles.pstatic.net/MjAyMjA3MTJfMjgz/MDAxNjU3NTk2MTAzODQ2.AEEKJDbY-ENjYSlrpcmHQxiHjy5BKpb7eKW01cTXn_og.iTO6my_B3hxtxK1lD8eOe00sNqeqyb6qFq9YeYMcdsIg.JPEG.joys0919/IMG_2159.JPG?type=w966"
-            width="400" height="400"></div>
-    <br>
-    <div id="middle_left1">물건 교환 커뮤니티</div>
-    <div id="middle_left2">서로의 물건을 통해서 추억을 공유할 수 있는 커뮤니티
-        집에서 놀고 있는 물건들을 필요한 사람들에게 내가 필요한 물건과 교환하여 삶을 효용성을 높여보자!
-    </div>
-    <div id="middle_left3"><img
-            src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MTRfMjA4%2FMDAxNjU3NzgwNjUxNzE4.7NTsvBZMeP3BrLlCILCdu7K_4xjBj6QYmHsOEWcT4Ccg.qc8nmRv6Kx--D4Yotl9bJyx6LOzJL_nAmRv1VahziDog.PNG.mychoi79%2F%25C0%25CC%25BB%25F3%25C7%25D1%25BA%25AF%25C8%25A3%25BB%25E7_%25BF%25EC%25BF%25B5%25BF%25EC_%25C0%25CE%25BB%25E7%25B9%25FD_%25288%2529.png&type=sc960_832"
-            width="600" height="200"></div>
-    <br>
-</div>
 </body>
 </html>
