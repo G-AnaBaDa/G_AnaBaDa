@@ -39,13 +39,13 @@
               </div>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="https://image.musinsa.com/data/gift/2020100713381500000005521.jpg" class="d-block w-100" style="width: 100%; height:auto;" alt="...">
+                  <img src="https://image.musinsa.com/data/gift/2020100713381500000005521.jpg" class="d-block w-100" style="width: 100%; height: 500;" alt="..."  ">
                 </div>
                 <div class="carousel-item">
-                  <img src="https://menu.mt.co.kr/moneyweek/thumb/2020/05/26/06/2020052618208000473_1.jpg" class="d-block w-100" style="width: 100%; height:auto;" alt="...">
+                  <img src="https://menu.mt.co.kr/moneyweek/thumb/2020/05/26/06/2020052618208000473_1.jpg" class="d-block w-100" style="width: 100%; height: 500;" alt="...">
                 </div>
                 <div class="carousel-item">
-                  <img src="http://file3.instiz.net/data/file3/2020/11/28/6/b/a/6ba4f9f1a5f0edad4a763b0090f0764c.gif" class="d-block w-100" style="width: 100%; height:auto;"  alt="...">
+                  <img src="http://file3.instiz.net/data/file3/2020/11/28/6/b/a/6ba4f9f1a5f0edad4a763b0090f0764c.gif" class="d-block w-100" style="width: 100%; height: 500;"  alt="...">
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -57,7 +57,7 @@
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
-
+            
             <br><hr>
 
             <dl class="row">
@@ -80,7 +80,7 @@
 
                 <br><br><br><br>
 
-              <dd class="col-sm-12"><p>내용 {{ product.content | safe }} Example>A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.A description list is perfect for defining terms.</p></dd>
+              <dd class="col-sm-12"><p>내용 {{ product.content | safe }} zz</p></dd>
 
             </dl>
 
@@ -101,14 +101,14 @@
             <hr>
 
             {% for comment in product.comments.all %}
-            <figure class="text-end">
-              <blockquote class="blockquote">
-                <p>{{ comment.content }}</p>
-              </blockquote>
-              <figcaption class="blockquote-footer">
-                {{ comment.user }}
-              </figcaption>
-            </figure>
+            <table>
+              <tr>
+                <th>{{ comment.user }}</th>
+              </tr>
+              <tr>
+                <th>{{ comment.content }}</th>
+              </tr>
+            </table>
             {% endfor %}
 
             <script>markupStr</script>
