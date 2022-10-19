@@ -83,4 +83,3 @@ def create_comment(request,pk):
         return redirect('/product/list/')
     return render(request,'product_list.html')
 
-
