@@ -12,5 +12,6 @@ urlpatterns=[
     path('delete/<int:pk>/', bviews.BoardDeleteView),
     #공지사항
     path('notice/',NoticeListView.as_view()),
-    path('notice/<int:pk>', NoticeDetailView.as_view())
+    path('notice/<int:pk>', NoticeDetailView.as_view()),
+    path('comment/<int:pk>/',bviews.create_comment)
 ]

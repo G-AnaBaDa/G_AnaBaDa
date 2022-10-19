@@ -54,8 +54,8 @@
                                 <li class="list-group-item">{{ my.hashtag }}</li>
                             </ul>
                             <div class="card-body">
-                                <a href="ChangeInfo.html"><button class="btn text-white" style="background-color:#1f2247" type="button">정보수정</button></a>
-                                <a href="#"><button class="btn text-white" style="background-color:#1f2247" type="button">삭제</button></a>
+                                <a href="/product/edit/{{ my.pk }}/"><button class="btn text-white" style="background-color:#1f2247" type="button">정보수정</button></a>
+                                <a href="/product/delete/{{ my.pk }}/"><button class="btn text-white" style="background-color:#1f2247" type="button">삭제</button></a>
                             </div>
                 {% endfor %}
             </div>

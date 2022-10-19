@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from rest_framework.views import APIView
-from .models import Board
+from .models import Board, Comment
 from .models import notice
 class BoardListView(ListView):
     model = Board
@@ -46,3 +46,14 @@ def BoardDeleteView(request,pk):
     delete_board = Board.objects.get(id=pk)
     delete_board.delete()
     return redirect('/board/list/')
+
+def create_comment(request,pk):
+    if request.method == 'POST':
+        comment = Comment()
+        comment.user = request.user
+        comment.content = request.POST.get('content')
+        comment.board = Board.objects.get(id=pk)
+        comment.save()
+
+        return redirect('/board/list')
+    return render(request,'community_list.html')

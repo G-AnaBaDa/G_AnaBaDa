@@ -54,6 +54,30 @@
                  </div>
             </div>
         </div>
+
+        {% for comment in board.board_comments.all %}
+        <figure class="text-end">
+            <blockquote class="blockquote">
+                <p>{{ comment.content }}</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                {{ comment.user }}
+            </figcaption>
+        </figure>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+            <form action="/board/comment/{{ board.pk }}/" method="POST">
+            {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="content" id="content" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn text-white" style="background-color:#1f2247" type="submit" id="button-addon2" value="Submit">Submit</button>
+                </div>
+            </form>
+        {% endif %}
+
+        <br><br>
+
         <div class="container">
             <div class="row">
                 <div class="col">
