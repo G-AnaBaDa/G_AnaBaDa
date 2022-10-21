@@ -1,5 +1,9 @@
+import json
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.views.generic import ListView, FormView
 from rest_framework.views import APIView
 from .models import Product,Comment
 from datetime import datetime, timedelta
@@ -10,7 +14,10 @@ class myPage(APIView):
     def get(self, request):
         myItem = Product.objects.filter(writer_id=request.session.get('id'))
         # 내 세션(나의 id)id값이 product DB에 저장된 writer_id와 일치하는것만 가져오기
-        return render(request, 'mypage.html', {'myItem': myItem})
+        products = Product.objects.filter(like_user=request.session.get('id'))
+        #찜한 상품 가져오는 products
+        return render(request, 'mypage.html', {'myItem': myItem,'products':products})
+
 
 # 상품 업로드
 class UploadProduct(APIView):
@@ -50,7 +57,7 @@ class productList(ListView):
     model = Product
     template_name = 'product_list.html'
 
-# 상품 상세보기 + 조회수 기능 추가 
+# 상품 상세보기 + 조회수 기능 추가
 def productDetail(request,pk):
     product = get_object_or_404(Product, id=pk)
     response = render(request, 'product_detail.html', {'product':product })
@@ -70,7 +77,6 @@ def productDetail(request,pk):
     return response
 
 
-
 @login_required
 def create_comment(request,pk):
     if request.method == 'POST':
@@ -82,4 +88,33 @@ def create_comment(request,pk):
 
         return redirect('/product/list/')
     return render(request,'product_list.html')
+
+
+@login_required
+@require_POST
+def product_like(request):
+    pk = request.POST.get('pk', None)
+    product = get_object_or_404(Product, pk=pk)
+    user = request.user
+
+    if product.like_user.filter(account_id=user).exists():
+        product.like_user.remove(user)
+        message = '좋아요 취소'
+    else:
+        product.like_user.add(user)
+        message = '좋아요'
+
+    context = {'like_count': product.count_like_user(), 'message': message}
+    return HttpResponse(json.dumps(context), content_type="application/json")
+
+@csrf_exempt
+def product_search(request):
+    search_content = request.POST.get('search')
+    products = Product.objects.all()
+    return render(request,'product_search.html',{'search_content':search_content,'products':products})
+
+
+
+
+
 

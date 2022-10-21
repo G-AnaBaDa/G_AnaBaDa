@@ -26,7 +26,7 @@ urlpatterns = [
     #G_AnaBaDa에서 관리해야하는것들
     path('', MainView.as_view()),
     path('account/',include('account.urls')),
-    path('product/',include('product.urls')),
+    path('product/',include('product.urls',namespace='product')),
     path('board/',include('board.urls')),
 
     #Board에서 관리할것들

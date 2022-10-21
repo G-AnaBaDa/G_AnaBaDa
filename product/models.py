@@ -12,6 +12,12 @@ class Product(models.Model):
     location = models.CharField(default='', null=False, blank=False, max_length=10)
     hashtag = models.CharField(default='', null=True, blank=True, max_length=10)
     count = models.PositiveIntegerField(default=0)
+    like_user = models.ManyToManyField(User, related_name='like', blank=True)
+
+    def count_like_user(self):  # total likes_user
+        return self.like_user.count()
+
+    #like_user 만들기
 
     def __str__(self):
         return self.title
