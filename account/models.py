@@ -68,3 +68,9 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+class SendBirdSessionToken(models.Model):
+    user_id = models.ForeignKey('account.User', on_delete=models.CASCADE, null=True, unique=False)
+    sessionToken = models.CharField(
+        "세션 토큰", max_length=512, blank=True, default="", null=True
+    )
