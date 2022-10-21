@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 from rest_framework.views import APIView
 from .models import Board, Comment
@@ -57,3 +58,11 @@ def create_comment(request,pk):
 
         return redirect('/board/list')
     return render(request,'community_list.html')
+
+
+@csrf_exempt
+def board_search(request):
+    search_content = request.POST.get('search')
+    board = Board.objects.all()
+    return render(request,'community_search.html',{'search_content':search_content,'board':board})
+
