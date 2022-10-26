@@ -40,9 +40,9 @@ urlpatterns = [
 ]
 
 # DEBUG Toolbar
-if settings.DEBUG:
-    mimetypes.add_type("application/javascript", ".js", True)
-    import debug_toolbar
-    urlpatterns += [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ]
+# if settings.DEBUG:
+#     mimetypes.add_type("application/javascript", ".js", True)
+#     import debug_toolbar
+#     urlpatterns += [
+#         path('__debug__/', include(debug_toolbar.urls)),
+#     ]

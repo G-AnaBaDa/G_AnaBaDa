@@ -3,11 +3,17 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView, FormView
+from django.views.generic import ListView
 from rest_framework.views import APIView
 from .models import Product,Comment
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+import requests
+
+application_id = settings.SENDBIRD_APPLICATION_ID
+sendbird_api_token = settings.SENDBIRD_API_TOKEN
+
 
 # 마이 페이지
 class myPage(APIView):
@@ -23,7 +29,6 @@ class myPage(APIView):
 class UploadProduct(APIView):
     def get(self, request):
         return render(request, template_name='product_upload.html')
-
     def post(self, request):
         title = request.POST.get('title')
         category = request.POST.get('category')
@@ -34,7 +39,39 @@ class UploadProduct(APIView):
         Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id)
         return redirect('/product/list/')
 
-def editproduct(request,pk):
+class Chat(APIView):
+    def get(self, request):
+        return render(request, template_name='chat_room.html')
+    def post(self, request):
+        message = request.POST.get('message')
+        url = f"https://api-{application_id}.sendbird.com/v3/group_channels"
+        api_headers = {"Api-Token": sendbird_api_token}
+        now_user = str(request.session.get('id'))
+        global arr
+        chat_user = arr[-1]
+        data = {
+            "inviter_id": now_user,
+            "user_ids": [now_user, chat_user],
+            "is_distinct": True,
+        }
+        res = requests.post(url, headers=api_headers, data=json.dumps(data))
+        res_data = json.loads(res._content.decode("utf-8"))
+        chanel_url = res_data.get('channel_url')
+        message_url = f"https://api-{application_id}.sendbird.com/v3/group_channels/{chanel_url}/messages"
+        data = {
+            'message_type': 'MESG',
+            'user_id': now_user,
+            'message': message
+        }
+        message_res = requests.post(message_url, headers=api_headers, data=json.dumps(data))
+        message_data = json.loads(message_res._content.decode("utf-8"))
+        message_ts = message_data['created_at']
+        message_list_url = f'https://api-{application_id}.sendbird.com/v3/group_channels/{chanel_url}/messages?message_ts={message_ts}&prev_limit=200'
+        message_list = requests.get(message_list_url, headers=api_headers)
+        message_list_res = json.loads((message_list._content.decode("utf-8")))
+        return render(request, 'chat_room.html', {'message_list2': message_list_res})
+
+def editproduct(request, pk):
     edit_product = Product.objects.get(id=pk)
     if request.method == 'POST':
         edit_product.title = request.POST['title']
@@ -49,7 +86,6 @@ def editproduct(request,pk):
 def deleteproduct(request,pk):
     product = Product.objects.get(id=pk)
     product.delete()
-
     return redirect('/product/list/')
 
 # 상품 게시판
@@ -58,7 +94,7 @@ class productList(ListView):
     template_name = 'product_list.html'
 
 # 상품 상세보기 + 조회수 기능 추가
-def productDetail(request,pk):
+def productDetail(request, pk):
     product = get_object_or_404(Product, id=pk)
     response = render(request, 'product_detail.html', {'product':product })
     expire_date, now = datetime.now(), datetime.now()
@@ -66,9 +102,7 @@ def productDetail(request,pk):
     expire_date = expire_date.replace(hour=0,minute=0,second=0,microsecond=0)
     expire_date -= now
     max_age = expire_date.total_seconds()
-
     cookie_value = request.COOKIES.get('countcookie','')
-
     if f'{pk}' not in cookie_value:
         cookie_value += f'{pk}_'
         response.set_cookie('countcookie', value=cookie_value, max_age=max_age,httponly=True)
@@ -76,21 +110,45 @@ def productDetail(request,pk):
         product.save()
     return response
 
+arr = []
+@login_required
+def create_sendbird_group_channel(request, pk):
+    try:
+        url = f"https://api-{application_id}.sendbird.com/v3/group_channels"
+        api_headers = {"Api-Token": sendbird_api_token}
+        now_user = request.session.get('id')
+        chat_user = str(Product.objects.get(id=pk))
+        global arr
+        arr.append(chat_user)
+        data = {
+            "inviter_id": now_user,
+            "user_ids": [now_user, chat_user],
+            "is_distinct": True,
+        }
+        res = requests.post(url, headers=api_headers, data=json.dumps(data))
+        res_data = json.loads(res._content.decode("utf-8"))
+        channel_url = res_data.get('channel_url')
+        message_ts = res_data['created_at']
+        message_list_url = f"https://api-{application_id}.sendbird.com/v3/group_channels/{channel_url}/messages?message_ts={message_ts}&prev_limit=200"
+        message_list = requests.get(message_list_url, headers=api_headers)
+        message_list_res = json.loads(message_list._content.decode("utf-8"))
+    except AttributeError:
+        pass
+    return render(request, 'chat_room.html', {'message_list1': message_list_res})
 
 @login_required
-def create_comment(request,pk):
+def create_comment(request, pk):
     if request.method == 'POST':
         comment = Comment()
         comment.content = request.POST.get('content')
         comment.user = request.user
         comment.product = Product.objects.get(id=pk)
         comment.save()
-
         return redirect('/product/list/')
     return render(request,'product_list.html')
 
 
-@login_required
+
 @require_POST
 def product_like(request):
     pk = request.POST.get('pk', None)

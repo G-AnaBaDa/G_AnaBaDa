@@ -1,0 +1,44 @@
+{#{{ message_list }}#}
+{{ message_list1 | json_script:"pastData" }}
+<script id="pastData" type="application/json"></script>
+<script type="text/javascript">
+                        var past = "{{ message_list1 }}";
+                        //document.write(message);
+                        var p = document.getElementById("pastData").textContent;
+                        var pjson = JSON.parse(p);
+                        for (let i =0;;i++){
+                            document.writeln(pjson['messages'][i]['message']);
+                            document.writeln(pjson['messages'][i]['user']['user_id']);
+                        }
+                    </script>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
+            <div class="form-group">
+                <img src="{{ user_profile }}" alt=""/>
+                <label for="exampleFormControlTextarea1" class="h4 pt-5"></label>
+                <form action="/product/send_message/" method="get">
+                    {{ message_list2 | json_script:"messageData" }}
+                    <script id="messageData" type="application/json"></script>
+                    <textarea class="form-control" id="chat-log" cols="100" rows="20" readonly></textarea><br>
+                    <script type="text/javascript">
+                        var message = "{{ message_list2 }}";
+                        //document.write(message);
+                        var msg = document.getElementById("messageData").textContent;
+                        var msgjson = JSON.parse(msg);
+                        for (let i =0;;i++){
+                            document.writeln(msgjson['messages'][i]['message']);
+                            document.writeln(msgjson['messages'][i]['user']['user_id']);
+                        }
+                    </script>
+                </form>
+            </div>
+            <form action="/product/send_message/" class="d-flex" method="post">
+                {% csrf_token %}
+                <input class="btn btn-secondary btn-lg btn-block" placeholder="채팅을 입력해주세요" name="message" size="100" type="text">
+                <button class="btn btn-outline-light" type="submit">보내기</button>
+            </form>
+        </div>
+    </div>
+</div>

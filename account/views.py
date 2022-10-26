@@ -127,15 +127,3 @@ class FindId(APIView):
 class FindPW(APIView):
     def get(self,request):
         return render(request,'registration/password_reset_form.html')
-
-def create_sendbird_group_channel(request, user_id='ok123'):
-    url = f"https://api-{application_id}.sendbird.com/v3/group_channel"
-    api_headers = {"Api-Token": sendbird_api_token}
-    now_user = request.session.get('id')
-    print(now_user)
-    data = {
-        "user_ids": user_id,
-        "is_public": True,
-    }
-    requests.post(url, data=json.dumps(data), headers=api_headers)
-    return "그룹 채널 생성 완료"
