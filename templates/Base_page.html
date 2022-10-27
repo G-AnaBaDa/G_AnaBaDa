@@ -65,29 +65,34 @@
                 누군가에게 추억을 주고 받으며 새로운 추억을 쌓아봐요.
             </div>
             <hr>
+            <br><br>
             <h1>실시간 인기매물</h1>
-            <h1>실시간 인기매물</h1>
+            <br>
 
-            <div class="card" style="width: 18rem;">
-                {{ context_data|safe }}
-                {% for product in products %}
-                    {% if product.photo1 %}
-                        <img src={{ product.photo1.url }} style="width:280px; height:300px class="card-img-top"/>
-                    {% else %}
-                        <img src="https://eng.ybmclass.com/toeic/img/noimage.gif">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">Card title->{{ product.title }}</h5>
-                        <p class="card-text">작성자:{{ product.writer }}</p>
-                        <div>등록시간 {{ product.write_time }}</div>
-                        <div>지역 {{ product.location }}</div>
-                        <div>조회수{{ product.count }}</div>
-                        <div>좋아요 {{ product.count_like_user }}</div>
+            <div class="row">
+                <div class="col">
+                <div class="card text-center" style="width: 18rem;">
+                    {{ context_data|safe }}
+                    {% for product in products %}
+                        {% if product.photo1 %}
+                            <img src={{ product.photo1.url }} style="width:280px; height:300px class="card-img-top"/>
+                        {% else %}
+                            <img src="https://eng.ybmclass.com/toeic/img/noimage.gif">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }}</h5>
+                            <p class="card-text">작성자:{{ product.writer }}</p>
+                            <div>등록시간 {{ product.write_time }}</div>
+                            <div>지역 {{ product.location }}</div>
+                            <div>조회수{{ product.count }}</div>
+                            <div>좋아요 {{ product.count_like_user }}</div>
 
-                        <a href='/product/list/{{ product.id }}'
-                           class="btn btn-primary">{{ product.content|safe }}</a>
-                    </div>
-                {% endfor %}
+                            <a href='/product/list/{{ product.id }}'
+                               class="btn btn-primary">{{ product.content|safe }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                </div>
             </div>
         </div>
         <div class="col-4">
@@ -102,7 +107,7 @@
                     <button class="btn text-white" style="background-color:#1f2247" type="button"
                             onclick="location.href='/account/signup/'">회원가입
                     </button>
-                    <br>
+
                     <div style="text-align:center">
                         <a href='/account/findId/'>아이디 찾기</a>
                         <a href='/account/password_reset/'>비밀번호 찾기</a>
@@ -117,7 +122,7 @@
                     </button>
                     <br>
                     <button class="btn text-white" style="background-color:#1f2247" type="button"
-                            onclick="location.href='/product/list/'">상품 리스트
+                            onclick="location.href='/product/list/'">상품게시판
                     </button>
                 </div>
             </div>
