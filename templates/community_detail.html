@@ -89,20 +89,22 @@
     </div>
 </div>
 
-{% for comment in board.board_comments.all %}
-    <figure class="text-end">
-        <blockquote class="blockquote">
-            <p>{{ comment.content }}</p>
-        </blockquote>
-        <figcaption class="blockquote-footer">
-            {{ comment.user }}
-        </figcaption>
-    </figure>
-{% endfor %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      {% for comment in board.board_comments.all %}
+            <table>
+              <tr>
+                  <th><font size="1em">{{ comment.user }}</font></th>
+              </tr>
+              <tr>
+                <th>{{ comment.content }}</th>
+              </tr>
+            </table>
+      {% endfor %}
 
-
-{% if user.is_authenticated %}
-    <form action="/board/comment/{{ board.pk }}/" method="POST">
+      {% if user.is_authenticated %}
+        <form action="/board/comment/{{ board.pk }}/" method="POST">
         {% csrf_token %}
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="content" id="content" placeholder="댓글을 입력하세요"
@@ -111,8 +113,13 @@
                     value="Submit">Submit
             </button>
         </div>
-    </form>
-{% endif %}
+        </form>
+        {% endif %}
+    </div>
+  </div>
+</div>
+
+
 
 <br><br>
 
