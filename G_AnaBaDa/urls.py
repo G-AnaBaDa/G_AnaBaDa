@@ -18,8 +18,9 @@ from django.urls import path
 from django.conf.urls import include
 from account.views import MainView
 
-import mimetypes
+# import mimetypes
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -37,7 +38,7 @@ urlpatterns = [
     # path('board/delete/<int:pk>/', bviews.BoardDeleteView),
     # path('notice/',NoticeListView.as_view()),
     # path('notice/<int:pk>', NoticeDetailView.as_view())
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # DEBUG Toolbar
 # if settings.DEBUG:

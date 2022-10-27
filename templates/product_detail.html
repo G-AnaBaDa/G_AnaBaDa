@@ -1,100 +1,122 @@
 <!DOCTYPE>
 <html>
 <style>
-    img{
+    img {
         border-radius: 30px 30px 30px 30px;
     }
-    body{
-      background-color: #f0ede7;
-  }
+
+    body {
+        background-color: #f0ede7;
+    }
 </style>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
-        <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
+    <div class="container-fluid">
         <a class="navbar-brand" href="/">US-Planet</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav" >
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="location.href='/board/notice/'">공지사항</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="location.href='/board/list/'">자유게시판</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onclick="location.href='/product/list/'">상품게시판</a>
-                    </li>
-                </ul>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-                        <form action="/product/search/" class="d-flex" method="post">
-                            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-light" type="submit">검색하기</button>
-                        </form>
-                </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/board/notice/'">공지사항</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/board/list/'">자유게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/product/list/'">상품게시판</a>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                <form action="/product/search/" class="d-flex" method="post">
+                    <input class="form-control me-2" name="search" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">검색하기</button>
+                </form>
             </div>
         </div>
-    </nav>
-    <div class="row text-center" style="width: 100%">
-        <div style="width: 60%; float:none; margin:0 auto" >
+    </div>
+</nav>
+<div class="row text-center" style="width: 100%">
+    <div style="width: 60%; float:none; margin:0 auto">
 
-            <br>
-            <br>
+        <br>
+        <br>
 
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
-              <div class="carousel-inner">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="https://image.musinsa.com/data/gift/2020100713381500000005521.jpg" class="d-block w-100" style="width: 100%; height: 500;" alt="..."  ">
+                    {% if  product.photo1 %}
+                        <img src="{{ product.photo1.url }}" class="d-block w-100" style="width: 100%; height: 500;"
+                             alt="...">
+
+                    {% else %}
+                        <img src="https://eng.ybmclass.com/toeic/img/noimage.gif">
+                    {% endif %}
                 </div>
-                <div class="carousel-item">
-                  <img src="https://menu.mt.co.kr/moneyweek/thumb/2020/05/26/06/2020052618208000473_1.jpg" class="d-block w-100" style="width: 100%; height: 500;" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img src="http://file3.instiz.net/data/file3/2020/11/28/6/b/a/6ba4f9f1a5f0edad4a763b0090f0764c.gif" class="d-block w-100" style="width: 100%; height: 500;"  alt="...">
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                {% if product.photo2 %}
+                    <div class="carousel-item">
+                        <img src="{{ product.photo2.url }}"
+                             class="d-block w-100" style="width: 100%; height: 500;" alt="...">
+                    </div>
+                    {% if product.photo3 %}
+                        <div class="carousel-item">
+                            <img src="{{ product.photo3.url }}"
+                                 class="d-block w-100" style="width: 100%; height: 500;" alt="...">
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
-              </button>
-            </div>
+            </button>
+        </div>
 
-            <br><hr>
+        <br>
+        <hr>
 
-            <dl class="row">
-              <dt class="col-sm-6">회원id(근데 닉네임으로 고쳐야함) {{ product.writer }}</dt>
-              <dd class="col-sm-4"></dd>
+        <dl class="row">
+            <dt class="col-sm-6">회원id(근데 닉네임으로 고쳐야함) {{ product.writer }}</dt>
+            <dd class="col-sm-4"></dd>
 
-              <br><br><br>
+            <br><br><br>
 
-              <dt class="col-sm-6" style="font-size: 30px;">Title {{ product.title }}</dt>
-              <dd class="col-sm-4"></dd>
+            <dt class="col-sm-6" style="font-size: 30px;">Title {{ product.title }}</dt>
+            <dd class="col-sm-4"></dd>
 
-              <br>
+            <br>
 
-              <dd class="col-sm-6">Category>  {{ product.category }}</dd>
-              <dd class="col-sm-4"></dd>
-              <dd class="col-sm-6">#해시태그 {{ object.hashtag }}</dd>
-              <dd class="col-sm-4"></dd>
-              <dd class="col-sm-6"><font color ="#C0C0C0"> {{ product.write_time.ctime }}</font></dd>
-              <dd class="col-sm-4"></dd>
+            <dd class="col-sm-6">Category> {{ product.category }}</dd>
+            <dd class="col-sm-4"></dd>
+            <dd class="col-sm-6">#해시태그 {{ object.hashtag }}</dd>
+            <dd class="col-sm-4"></dd>
+            <dd class="col-sm-6"><font color="#C0C0C0"> {{ product.write_time.ctime }}</font></dd>
+            <dd class="col-sm-4"></dd>
 
-              <br><br><br><br>
+            <br><br><br><br>
 
               <dd class="col-sm-12"><p>내용 {{ product.content | safe }} </p></dd>
                 <button class="btn text-white" style="background-color:#1f2247" onclick="location.href='/product/create_chat/{{ product.pk }}/'">1:1채팅하기</button><br>
@@ -102,64 +124,58 @@
 
             <br><br><br>
 
-          <div class="position-relative">
+        <div class="position-relative">
             {% if request.session.id|safe  == product.writer|safe %}
-              <div class="position-absolute top-50 start-0 translate-middle-y">
-                <button class="btn text-white" style="background-color:#1f2247"  onclick="location.href='/product/edit/{{ product.pk }}/'">수정하기</button>
-              </div>
-              <div class="position-absolute top-50 end-0 translate-middle-y">
-                <button class="btn text-white" style="background-color:#1f2247" onclick="location.href='/product/delete/{{ product.pk }}/'">삭제하기</button><br>
-              </div>
-            {% endif %}
-          </div>
-
-            <br>
-            <hr>
-
-            {% for comment in product.comments.all %}
-            <table>
-              <tr>
-                  <th><font size="1em">{{ comment.user }}</font></th>
-              </tr>
-              <tr>
-                <th>{{ comment.content }}</th>
-              </tr>
-            </table>
-            {% endfor %}
-            <br>
-            <script>markupStr</script>
-
-
-            {% if user.is_authenticated %}
-                    <form action="/product/comment/{{ product.pk }}/" method="POST">
-                    {% csrf_token %}
-                         <div class="input-group mb-3">
-                          <input type="text" class="form-control" name="content" id="content" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
-                          <button class="btn text-white" style="background-color:#1f2247" type="submit" id="button-addon2" value="Submit">Submit</button>
-                        </div>
-                    </form>
-            {% endif %}
-
-        <br><br>
-
-            <div class="position-relative">
-                <div class="position-absolute bottom-0 start-0">
-                        <button id="prev" class="btn btn-outline-secondary" type="button" onclick="location.href='/product/list/'">이전</button>
+                <div class="position-absolute top-50 start-0 translate-middle-y">
+                    <button class="btn text-white" style="background-color:#1f2247"
+                            onclick="location.href='/product/edit/{{ product.pk }}/'">수정하기
+                    </button>
                 </div>
-                <div class="position-absolute bottom-0 end-0">
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">메인 페이지</button>
+                <div class="position-absolute top-50 end-0 translate-middle-y">
+                    <button class="btn text-white" style="background-color:#1f2247"
+                            onclick="location.href='/product/delete/{{ product.pk }}/'">삭제하기
+                    </button>
+                    <br>
                 </div>
-            </div>
-
-        <br><br>
-
+            {% endif %}
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<div>
-    <input type="button" class="btn btn-info btn-sm like" name="{{ product.id }}" value="Like"
-        style="margin-top: 7px">
+        <br>
+        <hr>
+
+        {% for comment in product.comments.all %}
+            <table>
+                <tr>
+                    <th><font size="1em">{{ comment.user }}</font></th>
+                </tr>
+                <tr>
+                    <th>{{ comment.content }}</th>
+                </tr>
+            </table>
+        {% endfor %}
+        <br>
+        <script>markupStr</script>
+
+
+        {% if user.is_authenticated %}
+            <form action="/product/comment/{{ product.pk }}/" method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="content" id="content" placeholder="댓글을 입력하세요"
+                           aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn text-white" style="background-color:#1f2247" type="submit" id="button-addon2"
+                            value="Submit">Submit
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+
+        <br><br><br>
+   <div class="position-relative">
+                <div class="position-absolute bottom-0 end-0">
+                        <div>
+    <button type="button" class="btn btn-danger like" name="{{ product.id }}" value="Like"
+            style="margin-top: 7px"><img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" style="width: 20px; height: 20px"> </button>
     <p id="count-{{ product.id }}" style="font:bold 1em; margin-top: 3px">
         좋아요&nbsp;{{ product.likes_user.all.count }}개</p>
 </div>
@@ -187,5 +203,30 @@
         });
     })
 </script>
+                </div>
+            </div>
+
+        <br><br><br>
+        <div class="position-relative">
+            <div class="position-absolute bottom-0 start-0">
+                <button id="prev" class="btn btn-outline-secondary" type="button"
+                        onclick="location.href='/product/list/'">이전
+                </button>
+            </div>
+            <div class="position-absolute bottom-0 end-0">
+                <button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">메인 페이지</button>
+            </div>
+        </div>
+
+        <br><br>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+<br><br>
 </body>
 </html>

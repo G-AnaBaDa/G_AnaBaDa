@@ -53,8 +53,32 @@
 </nav>
 <div class="row text-center" style="width: 100%">
     <div style="width: 60%; float:none; margin:0 auto">
+        <div class="row" >
+               <div class="row row-cols-auto">
+                {# 카드 시작 코드 #}
+                <div class="card" style="width: 18rem;">
+                    {{ context_data|safe }}
+                    {% for product in object_list %}
+                        {% if product.photo1 %}
+                            <img src={{ product.photo1.url }} style="width:280px; height:300px class="card-img-top" />
+                        {% else %}
+                            <img src="https://eng.ybmclass.com/toeic/img/noimage.gif">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">Card title->{{ product.title }}</h5>
+                            <p class="card-text">작성자:{{ product.writer }}</p>
+                            <div>등록시간 {{ product.write_time }}</div>
+                            <div>지역 {{ product.location }}</div>
+                            <div>조회수{{ product.count }}</div>
+                            <div>좋아요 {{ product.count_like_user }}</div>
 
-
+                            <a href='/product/list/{{ product.id }}'
+                               class="btn btn-primary">{{ product.content|safe }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         <br>
 
         <div class="container">
