@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from rest_framework.views import APIView
-from .models import Product,Comment
+from .models import Product, Comment
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -36,7 +36,10 @@ class UploadProduct(APIView):
         user_id = request.user
         location = request.POST.get('location')
         hashtag = request.POST.get('hashtag')
-        Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id)
+        photo1 = request.FILES.get('photo1')
+        photo2 = request.FILES.get('photo2')
+        photo3 = request.FILES.get('photo3')
+        Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id,photo1=photo1,photo2=photo2,photo3=photo3)
         return redirect('/product/list/')
 
 class Chat(APIView):
@@ -79,6 +82,9 @@ def editproduct(request, pk):
         edit_product.content = request.POST['summernote']
         edit_product.location = request.POST['location']
         edit_product.hashtag = request.POST['hashtag']
+        edit_product.photo1 = request.FILES.get('photo1')
+        edit_product.photo2 = request.FILES.get('photo2')
+        edit_product.photo3 = request.FILES.get('photo3')
         edit_product.save()
         return redirect('/product/list/')
     return render(request,'product_edit.html',{'product': edit_product})
@@ -111,6 +117,7 @@ def productDetail(request, pk):
     return response
 
 arr = []
+
 @login_required
 def create_sendbird_group_channel(request, pk):
     try:
@@ -148,7 +155,7 @@ def create_comment(request, pk):
     return render(request,'product_list.html')
 
 
-
+@login_required
 @require_POST
 def product_like(request):
     pk = request.POST.get('pk', None)

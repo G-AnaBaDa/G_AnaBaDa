@@ -1,6 +1,6 @@
 from django.urls import path
 
-from account.views import Login, Logout, Register, FindId, FindPW
+from account.views import Login, Logout, Register, FindId
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [

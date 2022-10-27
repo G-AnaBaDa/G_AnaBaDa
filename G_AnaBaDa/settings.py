@@ -37,7 +37,17 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+        'width': '100%',
+        'height': '480',
+        'toolbar': ['bold', 'italic', 'underline'],
+    },
+    'disable_attachment': True,
+}
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -50,7 +60,6 @@ INSTALLED_APPS = [
     # "debug_toolbar",
     "product",
     "board",
-
 ]
 
 MIDDLEWARE = [
@@ -63,6 +72,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # 'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 INTERNAL_IPS = ('127.0.0.1')
 
@@ -148,7 +159,7 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'won05121@gmail.com'
 
 # 발신할 메일의 비밀번호
-EMAIL_HOST_PASSWORD = 'untg mtsx etwp crtv'
+EMAIL_HOST_PASSWORD = 'eeay ombn bzbb guhk'
 
 # TLS 보안 방법
 EMAIL_USE_TLS = True

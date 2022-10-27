@@ -110,9 +110,10 @@ class MainView(APIView):
 # main.html에는 context ={}를 통해 나중에 회원정보 하나하나 넘겨줄수있음
     def get(self, request):
         account_id = request.session.get('id')
+        products = Product.objects.all().order_by('-count')
         if account_id:
-            return render(request, 'main.html')
-        return render(request, 'Base_page.html')
+            return render(request, 'main.html',{'products':products})
+        return render(request, 'Base_page.html',{'products':products})
 
 #아이디 찾기
 class FindId(APIView):
@@ -123,7 +124,3 @@ class FindId(APIView):
         E = User.objects.filter(email=email)
 #E가 있는객체인지, 빈 객체인지는  결과 템플릿에서 if문에 나눠서 출력할것임
         return render(request, 'find_Id_result.html', {'E':E})
-
-class FindPW(APIView):
-    def get(self,request):
-        return render(request,'registration/password_reset_form.html')
