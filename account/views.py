@@ -81,12 +81,10 @@ class Login(APIView):
                 }
                 res = requests.post(url, headers=api_headers, data=json.dumps(data))
                 res_data = json.loads(res._content.decode("utf-8"))
-                print(res_data)
                 SendBirdSessionToken.objects.create(
                     user_id=user,
                     sessionToken=res_data["token"],
                 )
-                return print(res_data)
             return "sendbird에 유저가 없습니다."
 
         if user is not None:  # 올바른 로그인 정보 입력시.
