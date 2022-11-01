@@ -1,5 +1,6 @@
 from django.urls import path
 
+from account import views
 from account.views import Login, Logout, Register, FindId
 from django.contrib.auth import views as auth_views
 
@@ -10,6 +11,9 @@ urlpatterns = [
     # 아이디찾기
     path('findId/', FindId.as_view()),
 
+    path('kakaoLoginLogic/', views.kakaoLoginLogic),
+    path('kakaoLoginLogicRedirect/', views.kakaoLoginLogicRedirect),
+    path('kakaoLogout/', views.kakaoLogout),
     # 비번찾기
 # 비번찾기 위한 이메일 입력할 첫 화면
     path('password_reset/', auth_views.PasswordResetView.as_view(), name="password_reset"),

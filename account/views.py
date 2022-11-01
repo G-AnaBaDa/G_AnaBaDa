@@ -81,12 +81,10 @@ class Login(APIView):
                 }
                 res = requests.post(url, headers=api_headers, data=json.dumps(data))
                 res_data = json.loads(res._content.decode("utf-8"))
-                print(res_data)
                 SendBirdSessionToken.objects.create(
                     user_id=user,
                     sessionToken=res_data["token"],
                 )
-                return print(res_data)
             return "sendbird에 유저가 없습니다."
 
         if user is not None:  # 올바른 로그인 정보 입력시.
@@ -111,16 +109,75 @@ class MainView(APIView):
     def get(self, request):
         account_id = request.session.get('id')
         products = Product.objects.all().order_by('-count')
+        _context = {'check': False}
+
+        # G_아나바다 계정로그인된 경우
         if account_id:
-            return render(request, 'main.html',{'products':products})
-        return render(request, 'Base_page.html',{'products':products})
+            return render(request, 'main.html', {'products': products})
+
+        # 카톡 계정 로그인 됐을때(아래 access_token이 카톡 토큰임)
+        elif request.session.get('access_token'):
+            _context['check'] = True
+            context = {'products': products, '_context': _context}
+            return render(request, 'main.html', {'context': context})
+        # 아무 계정도 로그인 안됐을때
+        else:
+            return render(request, 'Base_page.html', {'products': products})
 
 #아이디 찾기
 class FindId(APIView):
-    def get(self,request):
+    def get(self, request):
         return render(request, 'find_Id.html')
-    def post(self,request):
+    def post(self, request):
         email = request.data.get('email')
         E = User.objects.filter(email=email)
-#E가 있는객체인지, 빈 객체인지는  결과 템플릿에서 if문에 나눠서 출력할것임
-        return render(request, 'find_Id_result.html', {'E':E})
+        # E가 있는객체인지, 빈 객체인지는  결과 템플릿에서 if문에 나눠서 출력할것임
+        return render(request, 'find_Id_result.html', {'E': E})
+
+
+# 카카오 로그인
+
+
+def kakaoLoginLogic(request):
+    # 입력필요
+    _restApiKey = '223ec240f24b6c90a9f568470a777b7f'
+    _redirectUrl = 'http://127.0.0.1:8000/account/kakaoLoginLogicRedirect'
+    _url = f'https://kauth.kakao.com/oauth/authorize?client_id={_restApiKey}&redirect_uri={_redirectUrl}&response_type=code'
+    return redirect(_url)
+
+
+def kakaoLoginLogicRedirect(request):
+    _qs = request.GET['code']
+    _restApiKey = '223ec240f24b6c90a9f568470a777b7f'  # 입력필요
+    _redirect_uri = 'http://127.0.0.1:8000/account/kakaoLoginLogicRedirect'
+    _url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={_restApiKey}&redirect_uri={_redirect_uri}&code={_qs}'
+    _res = requests.post(_url)
+    _result = _res.json()
+    request.session['access_token'] = _result['access_token']
+    request.session.modified = True
+    products = Product.objects.all()
+    request.session.get('access_token')
+    _context = {'check': True}
+    context = {'products': products, '_context': _context}
+    return render(request, 'main.html',{'context':context})
+
+
+def kakaoLogout(request):
+    _token = request.session['access_token']
+    _url = 'https://kapi.kakao.com/v1/user/logout'
+    _header = {
+        'Authorization': f'bearer {_token}'
+    }
+    # _url = 'https://kapi.kakao.com/v1/user/unlink'
+    # _header = {
+    #   'Authorization': f'bearer {_token}',
+    # }
+    _res = requests.post(_url, headers=_header)
+    _result = _res.json()
+    products = Product.objects.all()
+
+    if _result.get('id'):
+        del request.session['access_token']
+        return render(request, 'Base_page.html',{'products':products})
+
+

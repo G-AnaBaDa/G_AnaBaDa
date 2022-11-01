@@ -1,69 +1,76 @@
 <!DOCTYPE>
+{% load static %}
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <style>
     body {
         background-color: #f0ede7;
     }
 </style>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
-    <div class="container-fluid">
+ <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
+        <div class="container-fluid">
         <a class="navbar-brand" href="/">US-Planet</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" onclick="location.href='/board/notice/'">공지사항</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" onclick="location.href='/board/list/'">자유게시판</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" onclick="location.href='/product/list/'" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        상품게시판
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">디지털기기</a></li>
-                        <li><a class="dropdown-item" href="#">가구</a></li>
-                        <li><a class="dropdown-item" href="#">패션/잡화</a></li>
-                        <li><a class="dropdown-item" href="#">도서</a></li>
-                        <li><a class="dropdown-item" href="#">뷰티/미용</a></li>
-                        <li><a class="dropdown-item" href="#">기타</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-                <form action="/product/search/" class="d-flex" method="post">
-                    <input class="form-control me-2" name="search" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">검색하기</button>
-                </form>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="location.href='/board/notice/'">공지사항</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="location.href='/board/list/'">자유게시판</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                       <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                       상품게시판
+                       </a>
+                       <ul class="dropdown-menu" >
+                           <li><a class="dropdown-item" href = "/product/list/">디지털기기</a></li>
+                           <li><a class="dropdown-item" href="/product/list/">가구</a></li>
+                           <li><a class="dropdown-item" href="/product/list/">패션/잡화</a></li>
+                           <li><a class="dropdown-item" href="/product/list/">도서</a></li>
+                           <li><a class="dropdown-item" href="/product/list/">뷰티/미용</a></li>
+                           <li><a class="dropdown-item" href="/product/list/">기타</a></li>
+                       </ul>
+                    </li>
+                </ul>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                           <form action="/product/search/" class="d-flex" method="post">
+                            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit">검색하기</button>
+                        </form>
+                </div>
             </div>
         </div>
-    </div>
+    </nav>
 </nav>
+
+
 <br><br>
-<div class="row text-center" style="width: 100%">
-    <div style="width: 60%; float:none; margin:0 auto">
-        <div class="row" >
-               <div class="row row-cols-auto">
-                {# 카드 시작 코드 #}
-                <div class="card" style="width: 18rem;">
+
+<div class="container text-center">
+
+            {# 카드 시작 코드 #}
+
                     {{ context_data|safe }}
+                    <div class="card" style="width: 100%;">
+                    <div class="row row-cols-4">
                     {% for product in object_list %}
+                    <div class="col mb-4">
                         {% if product.photo1 %}
-                            <img src={{ product.photo1.url }} style="width:280px; height:300px class="card-img-top" />
+                            <img src={{ product.photo1.url }} class="card-img-top img-fluid">
                         {% else %}
-                            <img src="https://eng.ybmclass.com/toeic/img/noimage.gif">
+                            <img src="https://eng.ybmclass.com/toeic/img/noimage.gif" class="img-fluid">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ product.title }}</h5>
@@ -72,55 +79,16 @@
                             <div>지역 {{ product.location }}</div>
                             <div>조회수{{ product.count }}</div>
                             <div>좋아요 {{ product.count_like_user }}</div>
-
                             <a href='/product/list/{{ product.id }}'
                                class="btn btn-primary">{{ product.content|safe }}</a>
                         </div>
+                    </div>
                     {% endfor %}
+                  </div>
                 </div>
-            </div>
-        </div>
-        <br>
-
-        <div class="container">
-            <div style="color: grey">상품리스트</div>
-            <div class="row">
-                <div class="col">
-                    <table class="table table-bordered">
-                        <thead style="background-color:#1f2247; color: white">
-                        <tr>
-                            <th scope="col">제목</th>
-                            <th scope="col">작성자</th>
-                            <th scope="col">지역</th>
-                            <th scope="col">날짜</th>
-                            <th scope="col">조회수</th>
-                            <th scope="col">좋아요 수</th>
-
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {{ context_data|safe }}
-                        {% for product in object_list %}
-
-                            <tr>
-                                <td><a href='/product/list/{{ product.id }}'>{{ product.title|safe }}</a></td>
-                                <td>{{ product.writer }}</td>
-                                <td>{{ product.location }}</td>
-                                <td>{{ product.write_time }}</td>
-                                <td>{{ product.count }}</td>
-                                <td>{{ product.count_like_user }}</td>
 
 
-                            </tr>
-                            </tbody>
-                        {% endfor %}
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <br>
+        <br><br>
 
         {% if request.session.id %}
             <button class="btn text-white" style="background-color:#1f2247" onclick="location.href='/product/upload/'">
@@ -132,8 +100,9 @@
 
         <br><br>
 
-    </div>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
