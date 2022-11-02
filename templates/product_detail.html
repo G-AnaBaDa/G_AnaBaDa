@@ -112,21 +112,21 @@
 
             <br><br><br>
 
-            <dt class="col-sm-6" style="font-size: 30px;">Title {{ product.title }}</dt>
+            <dt class="col-sm-6" style="font-size: 30px;">{{ product.title }}</dt>
             <dd class="col-sm-4"></dd>
 
             <br>
 
             <dd class="col-sm-6">Category> {{ product.category }}</dd>
             <dd class="col-sm-4"></dd>
-            <dd class="col-sm-6">#해시태그 {{ object.hashtag }}</dd>
+            <dd class="col-sm-6">{{ object.hashtag }}</dd>
             <dd class="col-sm-4"></dd>
             <dd class="col-sm-6"><font color="#C0C0C0"> {{ product.write_time.ctime }}</font></dd>
             <dd class="col-sm-4"></dd>
 
             <br><br><br><br>
 
-              <dd class="col-sm-12"><p>내용 {{ product.content | safe }} </p></dd>
+              <dd class="col-sm-12"><p>{{ product.content | safe }} </p></dd>
                 <button class="btn text-white" style="background-color:#1f2247" onclick="location.href='/product/create_chat/{{ product.pk }}/'">1:1채팅하기</button><br>
             </dl>
 

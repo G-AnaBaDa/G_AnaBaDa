@@ -22,7 +22,7 @@ class myPage(APIView):
         # 내 세션(나의 id)id값이 product DB에 저장된 writer_id와 일치하는것만 가져오기
         products = Product.objects.filter(like_user=request.session.get('id'))
         #찜한 상품 가져오는 products
-        return render(request, 'mypage.html', {'myItem': myItem,'products':products})
+        return render(request, 'Mypage.html', {'myItem': myItem,'products':products})
 
 
 # 상품 업로드
