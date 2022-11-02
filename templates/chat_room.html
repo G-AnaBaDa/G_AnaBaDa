@@ -10,6 +10,17 @@
     body {
         background-color: #f0ede7;
     }
+    .abc {
+        background-color: coral;
+        border-radius: 20%;
+    }
+    .chat{
+        overflow:scroll;
+
+    }
+    .chat::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
 </style>
 <body>
  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1f2247;">
@@ -50,6 +61,7 @@
             </div>
         </div>
     </nav>
+ <br><br>
 <div class="container">
     <div class="row d-flex justify-content-center" >
         <div class="col-8">
@@ -59,37 +71,49 @@
                 <form action="/product/send_message/" method="get">
                     {{ message_list2 | json_script:"messageData" }}
                     <script id="messageData" type="application/json"></script>
-                    <div style=" width:100%; height: 600px; border:1px solid #1f2247">
+                    <div class = "chat" style=" width:100%; height: 600px; border:1px solid #1f2247">
+                        <div>
                         {#{{ message_list }}#}
                         {{ message_list1 | json_script:"pastData" }}
                         <script id="pastData" type="application/json"></script>
-                        <script type="text/javascript">
-                        var past = "{{ message_list1 }}";
-                        //document.write(message);
-                        var p = document.getElementById("pastData").textContent;
-                        var pjson = JSON.parse(p);
-                            for (let i = 0; ; i++) {
+                            <script type="text/javascript">
+                                const chat = document.querySelector(".chat");
+                                var past = "{{ message_list1 }}";
+                                //document.write(message);
+                                var p = document.getElementById("pastData").textContent;
+                                var pjson = JSON.parse(p);
 
-                                document.writeln('작성자: ',pjson['messages'][i]['user']['user_id']);
-                                document.writeln('<br>');
-                                document.writeln(pjson['messages'][i]['message']);
-                                document.writeln('<br>');
-                            }
+                                for (let i = 0; ; i++) {
+                                  let chatDiv1 = document.createElement("div");
+                                  chatDiv1.className = "position-relative m-2 h-25";
+                                  let newDiv1 = document.createElement("div");
+                                  newDiv1.className = "position-absolute start-0 d-inline-block bg-success bg-opacity-50 text-white p-3";
+                                  // newDiv.className = "position-absolute end-0 d-inline-block bg-success bg-opacity-50 text-white p-3";
+                                  newDiv1.innerHTML = "작성자: " + pjson["messages"][i]["user"]["user_id"] + "<br>" + pjson["messages"][i]["message"];
+                                  chatDiv1.append(newDiv1);
+                                  chat.append(chatDiv1);
+                                }
+                              </script>
+                        </div>
+                        <div>
+                              <script type="text/javascript">
+                                var message = "{{ message_list2 }}";
+                                //document.write(message);
+                                var msg = document.getElementById("messageData").textContent;
+                                var msgjson = JSON.parse(msg);
+                                for (let i = 0; ; i++) {
+                                  let chatDiv2 = document.createElement("div");
+                                  chatDiv2.className = "position-relative m-2 h-25";
+                                  let newDiv2 = document.createElement("div");
+                                  newDiv2.className = "position-absolute start-0 d-inline-block bg-primary bg-opacity-50 text-white p-3";
+                                  //newDiv2.className = "position-absolute end-0 d-inline-block bg-success bg-opacity-50 text-white p-3";
+                                  newDiv2.innerHTML = "작성자: " + msgjson["messages"][i]["user"]["user_id"] + "<br>" + msgjson["messages"][i]["message"];
 
-                    </script>
-                    <script type="text/javascript">
-                        var message = "{{ message_list2 }}";
-                        //document.write(message);
-                        var msg = document.getElementById("messageData").textContent;
-                        var msgjson = JSON.parse(msg);
-                        var k = 0;
-                            for (let i = 0; ; i++) {
-                                document.writeln('작성자:',msgjson['messages'][i]['user']['user_id']);
-                                document.writeln('<br>');
-                                document.writeln(msgjson['messages'][i]['message']);
-                                document.writeln('<br>');
-                            }
-                    </script>
+                                  chatDiv2.append(newDiv2);
+                                  chat.append(chatDiv2);
+                                }
+                            </script>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -101,6 +125,7 @@
         </div>
     </div>
 </div>
+
 </body>
 
 

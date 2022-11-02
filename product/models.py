@@ -22,7 +22,7 @@ class Product(models.Model):
 
     #like_user 만들기
     def __str__(self):
-        return self.title
+        return self.writer_id
 
 
 class Comment(models.Model):
