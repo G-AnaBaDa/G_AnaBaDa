@@ -52,6 +52,10 @@ class Chat(APIView):
         now_user = str(request.session.get('id'))
         global arr
         chat_user = arr[-1]
+        # print(now_user)
+        # print(chat_user)
+        # print(arr)
+        # print(arr[-1])
         data = {
             "inviter_id": now_user,
             "user_ids": [now_user, chat_user],
@@ -60,6 +64,7 @@ class Chat(APIView):
         res = requests.post(url, headers=api_headers, data=json.dumps(data))
         res_data = json.loads(res._content.decode("utf-8"))
         chanel_url = res_data.get('channel_url')
+        # print(chanel_url)
         message_url = f"https://api-{application_id}.sendbird.com/v3/group_channels/{chanel_url}/messages"
         data = {
             'message_type': 'MESG',
@@ -69,6 +74,7 @@ class Chat(APIView):
         message_res = requests.post(message_url, headers=api_headers, data=json.dumps(data))
         message_data = json.loads(message_res._content.decode("utf-8"))
         message_ts = message_data['created_at']
+        # print(message_ts)
         message_list_url = f'https://api-{application_id}.sendbird.com/v3/group_channels/{chanel_url}/messages?message_ts={message_ts}&prev_limit=200'
         message_list = requests.get(message_list_url, headers=api_headers)
         message_list_res = json.loads((message_list._content.decode("utf-8")))
@@ -125,6 +131,7 @@ def create_sendbird_group_channel(request, pk):
         api_headers = {"Api-Token": sendbird_api_token}
         now_user = request.session.get('id')
         chat_user = str(Product.objects.get(id=pk))
+        # print(chat_user)
         global arr
         arr.append(chat_user)
         data = {
@@ -138,6 +145,7 @@ def create_sendbird_group_channel(request, pk):
         message_ts = res_data['created_at']
         message_list_url = f"https://api-{application_id}.sendbird.com/v3/group_channels/{channel_url}/messages?message_ts={message_ts}&prev_limit=200"
         message_list = requests.get(message_list_url, headers=api_headers)
+        # print(arr)
         message_list_res = json.loads(message_list._content.decode("utf-8"))
     except AttributeError:
         pass
@@ -177,9 +185,3 @@ def product_search(request):
     search_content = request.POST.get('search')
     products = Product.objects.all()
     return render(request,'product_search.html',{'search_content':search_content,'products':products})
-
-
-
-
-
-
