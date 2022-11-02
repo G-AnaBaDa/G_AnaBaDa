@@ -8,7 +8,7 @@ class Product(models.Model):
     category = models.CharField(default='', null=False, blank=False, max_length=10)
     content = models.TextField(default='', null=False, blank=False)
     writer = models.ForeignKey('account.User', on_delete=models.CASCADE, default=User.objects.first().pk)
-    write_time = models.DateField(auto_now=True)
+    write_time = models.DateTimeField(auto_now=True)
     location = models.CharField(default='', null=False, blank=False, max_length=10)
     hashtag = models.CharField(default='', null=True, blank=True, max_length=10)
     count = models.PositiveIntegerField(default=0)

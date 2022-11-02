@@ -65,9 +65,9 @@ class User(AbstractBaseUser):
 
     # True가 반환되면 장고의 관리자 화면에 로그인 할 수 있다.
     # 만약 127.0.0.1/admin을 가리고싶다면 해당 부분을 주석처리한다.
-    @property
-    def is_staff(self):
-        return self.is_admin
+    # @property
+    # def is_staff(self):
+    #     return self.is_admin
 
 class SendBirdSessionToken(models.Model):
     user_id = models.ForeignKey('account.User', on_delete=models.CASCADE, null=True, unique=False)
