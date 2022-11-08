@@ -1,7 +1,6 @@
 from django.db import models
 from account.models import User
 
-# Create your models here.
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(default='', null=False, blank=False, max_length=50)
