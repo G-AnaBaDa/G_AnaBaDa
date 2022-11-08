@@ -17,10 +17,12 @@ sendbird_api_token = settings.SENDBIRD_API_TOKEN
 
 # 회원가입
 class Register(APIView):
+
+    #회원가입 폼 출력
     def get(self, request):
         template_name = 'signup.html'
         return render(request, template_name)
-
+    # 회원가입 폼을 채운 후 전송
     def post(self, request):
         account_id = request.data.get('account_id', "")
         email = request.data.get('email', "")
@@ -136,8 +138,6 @@ class FindId(APIView):
 
 
 # 카카오 로그인
-
-
 def kakaoLoginLogic(request):
     # 입력필요
     _restApiKey = '223ec240f24b6c90a9f568470a777b7f'

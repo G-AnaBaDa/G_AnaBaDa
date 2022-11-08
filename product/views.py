@@ -42,6 +42,7 @@ class UploadProduct(APIView):
         Product.objects.create(title=title, category=category, content=summernote, location=location, hashtag=hashtag,writer=user_id,photo1=photo1,photo2=photo2,photo3=photo3)
         return redirect('/product/list/')
 
+#채팅하기
 class Chat(APIView):
     def get(self, request):
         return render(request, template_name='chat_room.html')
@@ -52,10 +53,6 @@ class Chat(APIView):
         now_user = str(request.session.get('id'))
         global arr
         chat_user = arr[-1]
-        # print(now_user)
-        # print(chat_user)
-        # print(arr)
-        # print(arr[-1])
         data = {
             "inviter_id": now_user,
             "user_ids": [now_user, chat_user],
@@ -80,6 +77,7 @@ class Chat(APIView):
         message_list_res = json.loads((message_list._content.decode("utf-8")))
         return render(request, 'chat_room.html', {'message_list2': message_list_res})
 
+# 상품 수정하기
 def editproduct(request, pk):
     edit_product = Product.objects.get(id=pk)
     if request.method == 'POST':
@@ -95,12 +93,13 @@ def editproduct(request, pk):
         return redirect('/product/list/')
     return render(request,'product_edit.html',{'product': edit_product})
 
+#상품 삭제하기
 def deleteproduct(request,pk):
     product = Product.objects.get(id=pk)
     product.delete()
     return redirect('/product/list/')
 
-# 상품 게시판
+# 상품 리스트 출력
 class productList(ListView):
     model = Product
     template_name = 'product_list.html'
@@ -124,6 +123,7 @@ def productDetail(request, pk):
 
 arr = []
 
+#샌드버드 채팅 api
 @login_required
 def create_sendbird_group_channel(request, pk):
     try:
@@ -151,6 +151,7 @@ def create_sendbird_group_channel(request, pk):
         pass
     return render(request, 'chat_room.html', {'message_list1': message_list_res})
 
+# 상품 게시글 댓글 작성
 @login_required
 def create_comment(request, pk):
     if request.method == 'POST':
@@ -163,6 +164,7 @@ def create_comment(request, pk):
     return render(request,'product_list.html')
 
 
+#상품 좋아요 기능
 @login_required
 @require_POST
 def product_like(request):
@@ -180,6 +182,7 @@ def product_like(request):
     context = {'like_count': product.count_like_user(), 'message': message}
     return HttpResponse(json.dumps(context), content_type="application/json")
 
+#상품 검색하기
 @csrf_exempt
 def product_search(request):
     search_content = request.POST.get('search')
